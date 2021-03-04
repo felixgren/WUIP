@@ -5,6 +5,7 @@ const blackOverlay = document.querySelector(".blackImageCover");
 const leftCloud = document.querySelector("#Cloud_left_1_");
 const rightCloud = document.querySelector("#Cloud_right_1_");
 const sun = document.querySelector("#Sun_1_ circle");
+const sky = document.querySelector("#Sky");
 
 
 function createElement(args){
@@ -71,75 +72,90 @@ function createElement(args){
     }
     
     createElement(date);
-    
-    
-    
-        
+            
         let lastKnownScrollPosition = 0;
-        
         let ticking = false;
-
         let moveLeft = 0;
         let moveRight = 0;
         let sunY = 0;
-        let cloudTexts = document.querySelectorAll(".cloudText");
-        
-    
-        function moveObject(scrollDirection){	
+        let sunMovement = 0;
+        const cloudTexts = document.querySelectorAll(".cloudText");
+        sky.setAttribute('position', window.scrollY);
+        // const cloudMvmtRelation = leftCloud.getAttribute('movement');
+
+        function logScrollDirection() {
+            let previous = window.scrollY;
+            window.addEventListener('scroll', function(){
+                window.scrollY > previous ? console.log('down') : console.log('up');
+                previous = window.scrollY;
+            });
+        }
             
-           
+        function moveObject(scrollDirection){	
+
+            // Solution to solve scroll detection problem with requestanimationframe.
+            let currentPosition = sky.getAttribute('position');
+            sky.setAttribute('position', window.scrollY);
+            let skyPosition = sky.getAttribute('position');       
+            if(skyPosition > currentPosition){
+                // console.log('Ner');
+            }else{
+                // console.log('Upp');
+            }
+            
+            let cloudMvmtRelation = leftCloud.getAttribute('movement');
             let leftTransformAttr = 'translate(' + window.scrollY / 4 + ',0)';
             leftCloud.setAttribute('transform', leftTransformAttr); 		
+
+            leftCloud.setAttribute('movement', window.scrollY / 4);
+        
             let rightTransformAttr = 'translate(' + (0 - window.scrollY / 4) + ',0)';
             rightCloud.setAttribute('transform', rightTransformAttr);
+        
+            
+            // 245 = Start the night.
+            let sunMovementY = window.scrollY / 30;
+            sunMovement = 'translate(' + sunMovementY + ', ' + window.scrollY / 50 + ')';
+            sun.setAttribute('transform', sunMovement);
 
-            
-            sunY = window.scrollY <= 2500 ? 0 : sunY+20;
-
-            
-
-            let sunMovement = 'translate(' + window.scrollY / 40 + ', ' + (window.scrollY <= 2500 ? 0 : sunY) + ')';
-            
-            sun.setAttribute('transform', sunMovement); 
-            
-            console.log(window.scrollY);
-            
-            /* Adjust opacity/night */
-            if(scrollDirection > window.scrollY){ // Scrolling down
-                
-                
-                // for (let i = 0; i < cloudTexts.length; i++) {
-                //    console.log(cloudTexts[i]);
-                //     cloudTexts[i].style.opacity = window.scrollY/6;
-                // }
-
-                if(blackOverlay.style.opacity <= 0.7){
-                    console.log('ner');
-                    //blackOverlay.style.opacity = window.scrollY/10000;
-                }
-            }else{ // Scrolling up
-                
-                // if(window.scrollY)
-                for (let i = 0; i < cloudTexts.length; i++) {
-                    cloudTexts[i].style.opacity = window.scrollY/3000;
-                }
-                if(window.scrollY >= 2500){
-                    if(blackOverlay.style.opacity >= 0){
-                        blackOverlay.style.opacity = window.scrollY/20000;
-                    }
-                }
+            for (let i = 0; i < cloudTexts.length; i++) {
+                cloudTexts[i].style.opacity = window.scrollY/3000;
             }
+
+            /* Adjust opacity/night */
+            let startFromZero = 7375;
+            if(skyPosition > currentPosition){ // console.log('Ner');
+                if(sunMovementY >= 245){
+                    
+                    console.log((window.scrollY-startFromZero)/5000);
+                    blackOverlay.style.opacity = (window.scrollY-startFromZero)/5000;
+                }
+                
+            }else{ // console.log('Upp');
+                if(sunMovementY <= 245 && blackOverlay.style.opacity > 0){
+                    console.log((window.scrollY-startFromZero)/5000);
+                    blackOverlay.style.opacity = (window.scrollY-startFromZero)/5000;
+                }
+                
+            }
+
+            // console.log(sky.getAttribute('position'), window.scrollY/10000);
+            // blackOverlay.style.opacity = window.scrollY/30000;
         }
+
+        
     
         document.addEventListener('scroll', function(e) {
             lastKnownScrollPosition = window.scrollY;
+           
     
         if (!ticking) {
             window.requestAnimationFrame(function() {
                 moveObject(lastKnownScrollPosition);
-            ticking = false;
-        });
-    
-        ticking = true;
-      }
+           ticking = false;
+       
+            });
+        }
+       ticking = true;
+      //}
     });

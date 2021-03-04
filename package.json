@@ -1,0 +1,28 @@
+{
+  "name": "WUIP",
+  "version": "1.0.0",
+  "description": "School project with IP",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel index.html",
+    "build": "parcel index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielmedb/WUIP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielmedb/WUIP/issues"
+  },
+  "homepage": "https://github.com/danielmedb/WUIP#readme",
+  "devDependencies": {
+    "parcel-bundler": "1.12.3"
+  },
+  "resolutions": {
+    "@babel/preset-env": "7.13.8"
+  }
+}
