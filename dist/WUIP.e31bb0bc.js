@@ -189,6 +189,7 @@ var moveLeft = 0;
 var moveRight = 0;
 var sunY = 0;
 var sunMovement = 0;
+var blackOpacity = 0;
 var cloudTexts = document.querySelectorAll(".cloudText");
 sky.setAttribute('position', window.scrollY); // const cloudMvmtRelation = leftCloud.getAttribute('movement');
 
@@ -205,12 +206,6 @@ function moveObject(scrollDirection) {
   var currentPosition = sky.getAttribute('position');
   sky.setAttribute('position', window.scrollY);
   var skyPosition = sky.getAttribute('position');
-
-  if (skyPosition > currentPosition) {// console.log('Ner');
-  } else {// console.log('Upp');
-    }
-
-  var cloudMvmtRelation = leftCloud.getAttribute('movement');
   var leftTransformAttr = 'translate(' + window.scrollY / 4 + ',0)';
   leftCloud.setAttribute('transform', leftTransformAttr);
   leftCloud.setAttribute('movement', window.scrollY / 4);
@@ -224,26 +219,37 @@ function moveObject(scrollDirection) {
   for (var i = 0; i < cloudTexts.length; i++) {
     cloudTexts[i].style.opacity = window.scrollY / 3000;
   }
+
+  function checkScrollDirection(skyPosition, currentPosition, sunMovementY) {
+    if (skyPosition > currentPosition) {
+      if (sunMovementY >= 245 && sunMovementY <= 348) {}
+    }
+  }
   /* Adjust opacity/night */
+  // Sun goes down 235 / 7385
+  // Night total at 348 / 10437
+  // Difference 143 / 3052
+  // 0.71 / 3052 = 0.000232;
 
 
-  var startFromZero = 7375;
+  var stopSunAt = 7385;
+  var fadingPerScrollY = 0.000232;
 
   if (skyPosition > currentPosition) {
     // console.log('Ner');
-    if (sunMovementY >= 245) {
-      console.log((window.scrollY - startFromZero) / 5000);
-      blackOverlay.style.opacity = (window.scrollY - startFromZero) / 5000;
+    if (sunMovementY >= 245 && sunMovementY <= 348) {
+      if (blackOverlay.style.opacity <= 0.7) {
+        blackOverlay.style.opacity = fadingPerScrollY * (window.scrollY - stopSunAt);
+      } else {
+        blackOverlay.style.opacity = 0.71;
+      }
     }
   } else {
     // console.log('Upp');
-    if (sunMovementY <= 245 && blackOverlay.style.opacity > 0) {
-      console.log((window.scrollY - startFromZero) / 5000);
-      blackOverlay.style.opacity = (window.scrollY - startFromZero) / 5000;
+    if (sunMovementY >= 245 && sunMovementY <= 348 && blackOverlay.style.opacity >= 0) {
+      blackOverlay.style.opacity = fadingPerScrollY * (window.scrollY - stopSunAt);
     }
-  } // console.log(sky.getAttribute('position'), window.scrollY/10000);
-  // blackOverlay.style.opacity = window.scrollY/30000;
-
+  }
 }
 
 document.addEventListener('scroll', function (e) {
