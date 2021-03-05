@@ -183,6 +183,11 @@ var date = {
   'class': 'cloudText'
 };
 createElement(date);
+
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
 var lastKnownScrollPosition = 0;
 var ticking = false;
 var moveLeft = 0;

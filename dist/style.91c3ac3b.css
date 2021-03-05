@@ -1,0 +1,102 @@
+:root {
+  --overLay: #000;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "NixieOne";
+  src: url("/nixie-one-v11-latin-regular.3629c87f.woff2");
+}
+.page {
+  height: 1000vh;
+  position: relative;
+}
+
+.image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.image svg text {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  z-index: 0;
+}
+
+.blackImageCover {
+  background-color: var(--overLay);
+  position: fixed;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.st0 {
+  fill: #9BB0B9;
+}
+
+.st1 {
+  fill: #E9CB56;
+}
+
+.st2 {
+  fill: #B99C74;
+}
+
+.st3 {
+  fill: #AC875C;
+}
+
+.st4 {
+  fill: #3F514D;
+}
+
+.st5 {
+  fill: #D26446;
+}
+
+.st6 {
+  fill: #E9A856;
+}
+
+.st7 {
+  fill: #E9BE56;
+}
+
+.st8 {
+  display: none;
+}
+
+.st9 {
+  display: inline;
+}
+
+.st10 {
+  fill: #FFFFFF;
+}
+
+.st11 {
+  fill: #FAFAFA;
+}
+
+.st12 {
+  fill: #C8D0D6;
+}
+
+.st13 {
+  fill: #C2C5D6;
+}
+
+.st14 {
+  opacity: 0;
+}
+
+/*# sourceMappingURL=/style.91c3ac3b.css.map */

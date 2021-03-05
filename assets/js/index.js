@@ -1,5 +1,7 @@
 "use strict";
 
+const { forEach } = require("core-js/fn/array");
+
 /* GET ALL CLASSES THAT ARE NEEDED */
 const blackOverlay = document.querySelector(".blackImageCover");
 const leftCloud = document.querySelector("#Cloud_left_1_");
@@ -9,56 +11,53 @@ const sky = document.querySelector("#Sky");
 
 
 function createElement(args){
-    let mysvg = document.querySelector(args.targetDiv);
-    let myTextElement = document.createElementNS("http://www.w3.org/2000/svg", args.type);
-    let myText = document.createTextNode(args.text);
-    myTextElement.setAttribute("x", args.x);
-    myTextElement.setAttribute("y", args.y);
-    myTextElement.setAttribute("fill", args.fillColor);
-    myTextElement.setAttribute("font-family", args.fontFamily);
-    myTextElement.setAttribute("font-size", args.fontSize);
-    myTextElement.setAttribute("opacity", args.opacity);
-    myTextElement.setAttribute("class", args.class);
-    myTextElement.setAttribute("text-anchor", "middle");
-    myTextElement.setAttribute("dominant-baseline", "middle");
-    myTextElement.appendChild(myText);
-    mysvg.prepend(myTextElement);
+    let svg = document.querySelector(args.targetDiv);
+    let element = document.createElementNS("http://www.w3.org/2000/svg", args.type);
+    let text = document.createTextNode(args.text);
+    element.setAttribute("x", args.x);
+    element.setAttribute("y", args.y);
+    element.setAttribute("fill", args.fillColor);
+    element.setAttribute("font-family", args.fontFamily);
+    element.setAttribute("font-size", args.fontSize);
+    element.setAttribute("opacity", args.opacity);
+    element.setAttribute("class", args.class);
+    element.setAttribute("text-anchor", "middle");
+    element.setAttribute("dominant-baseline", "middle");
+    element.appendChild(text);
+    svg.prepend(element);
     }
+
+    const elementsToCreate = [
+
     
-    let args = 
-    {
-        'targetDiv' : '#Clouds',
-        'type' : 'text',
-        'text' : 'GLAMPA',
-        'x' : '50%',
-        'y' : '310',
-        'fillColor' : 'black',
-        'fontFamily' : 'NixieOne',
-        'fontSize' : '30',
-        'opacity' : '0',
-        'class' : 'cloudText'
-    }
-    
-    createElement(args);
-    
-    let newnew = {
-        'targetDiv' : '#Clouds',
-        'type' : 'text',
-        'text' : 'MED HAPPIE CAMP',
-        'x' : '50%',
-        'y' : '340',
-        'fillColor' : 'black',
-        'fontFamily' : 'NixieOne',
-        'fontSize' : '20',
-        'opacity' : '0',
-        'class' : 'cloudText'
-        
-    }
-    
-    createElement(newnew);
-    
-    let date = {
-        'targetDiv' : '#Clouds',
+        {
+            'targetDiv' : '#Clouds',
+            'type' : 'text',
+            'text' : 'GLAMPA',
+            'x' : '50%',
+            'y' : '310',
+            'fillColor' : 'black',
+            'fontFamily' : 'NixieOne',
+            'fontSize' : '30',
+            'opacity' : '0',
+            'class' : 'cloudText'
+        },
+
+        {
+            'targetDiv' : '#Clouds',
+            'type' : 'text',
+            'text' : 'MED HAPPIE CAMP',
+            'x' : '50%',
+            'y' : '340',
+            'fillColor' : 'black',
+            'fontFamily' : 'NixieOne',
+            'fontSize' : '20',
+            'opacity' : '0',
+            'class' : 'cloudText'
+        },
+
+        {
+            'targetDiv' : '#Clouds',
         'type' : 'text',
         'text' : '2-4 Juli',
         'x' : '50%',
@@ -69,9 +68,16 @@ function createElement(args){
         'opacity' : '0',
         'class' : 'cloudText'
         
+        }
+    ]
+
+    for(let element in elementsToCreate){
+        createElement(elementsToCreate[element]);
     }
-    
-    createElement(date);
+  
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        }
             
         let lastKnownScrollPosition = 0;
         let ticking = false;
