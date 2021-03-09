@@ -9198,14 +9198,16 @@ var sky = document.querySelector("#Sky");
 var body = document.querySelector("body");
 var tent = document.querySelector("#Tent_2_");
 var sign = document.querySelector("#Sign-name");
+var page = document.querySelector(".textHier");
 var queryString = window.location.search; //http://localhost:1234/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
 
 var urlParams = new URLSearchParams(queryString);
 var name = urlParams.get('name');
 var email = urlParams.get('email');
 var phone = urlParams.get('phone');
-console.log(name, email, phone);
-var signText = document.querySelector(".hello-name");
+document.querySelector(".name").value = name;
+document.querySelector(".email").value = email;
+document.querySelector(".phone").value = phone;
 var hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hyālō', 'Ni Hao', 'Moi', 'Aloha', 'Privet', 'Ciao'];
 
 function createElement(args) {
@@ -9270,7 +9272,7 @@ var textBehindCloud = _gsap.gsap.utils.toArray(".cloudText");
 
 setInterval(function () {
   var rand = Math.floor(Math.random() * hiText.length);
-  document.querySelector(".helloHiHola").textContent = "".concat(hiText[rand], " ").concat(name);
+  document.querySelector(".hello-name").textContent = "".concat(hiText[rand], " ").concat(name);
 }, 2000); // LEFT 1,2,3,1
 // RIGHT 4,5,1
 
@@ -9342,7 +9344,7 @@ _gsap.gsap.timeline().from(tree1_1, {
   rotation: 90,
   transformOrigin: "center bottom",
   ease: "bounce.out"
-}, "+=1.5");
+}, "+=0.5");
 
 _gsap.gsap.to(sun, {
   scrollTrigger: {
@@ -9371,6 +9373,11 @@ _gsap.gsap.to(blackOverlay, {
       x: 0,
       onComplete: function onComplete() {
         textBehindCloud.forEach(function (element) {
+          _gsap.gsap.to(element, {
+            fill: 'white'
+          }); // page.append(element);
+
+
           console.log(element);
         });
       }
@@ -9382,7 +9389,7 @@ _gsap.gsap.to(blackOverlay, {
       duration: 0
     });
   },
-  opacity: 0.7
+  opacity: 0.4
 });
 
 var welcomeText = document.querySelector("#longText");
@@ -9442,7 +9449,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51665" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56297" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

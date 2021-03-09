@@ -21,6 +21,7 @@ const sky = document.querySelector("#Sky");
 const body = document.querySelector("body");
 const tent = document.querySelector("#Tent_2_");
 const sign = document.querySelector("#Sign-name");
+const page = document.querySelector(".textHier");
 
 const queryString = window.location.search;
 //http://localhost:1234/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
@@ -30,9 +31,9 @@ const name = urlParams.get('name');
 const email = urlParams.get('email');
 const phone = urlParams.get('phone');
 
-console.log(name,email,phone);
-const signText = document.querySelector(".hello-name");
-
+document.querySelector(".name").value = name;
+document.querySelector(".email").value = email;
+document.querySelector(".phone").value = phone;
 
 let hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hyālō', 'Ni Hao', 'Moi', 'Aloha', 'Privet', 'Ciao'];
 
@@ -106,7 +107,7 @@ const textBehindCloud = gsap.utils.toArray(".cloudText");
 
 setInterval(function() {
   let rand = Math.floor(Math.random() * hiText.length);
-  document.querySelector(".helloHiHola").textContent = `${hiText[rand]} ${name}` ;
+  document.querySelector(".hello-name").textContent = `${hiText[rand]} ${name}` ;
 }, 2000);
 
 // LEFT 1,2,3,1
@@ -160,7 +161,7 @@ gsap.timeline()
         rotation:90, 
         transformOrigin:"center bottom",
         ease: "bounce.out",
-    }, "+=1.5"
+    }, "+=0.5"
 )
   
 
@@ -190,6 +191,13 @@ gsap.to(blackOverlay, {
                 x: 0,
                 onComplete : () => {
                     textBehindCloud.forEach(element => {
+                        gsap.to(element, {
+                            fill: 'white',
+                          
+                        })
+                        // page.append(element);
+                        
+                        
                         console.log(element);
                     })
                 }
@@ -202,13 +210,8 @@ gsap.to(blackOverlay, {
             duration: 0,
         });
     }, 
-    opacity: 0.7
+    opacity: 0.4
 });
-
-
-
-
-
 
     const welcomeText = document.querySelector("#longText");
     gsap.to(welcomeText, {
@@ -224,7 +227,7 @@ gsap.to(blackOverlay, {
 
 
 
-   
+
 
     textBehindCloud.forEach(element => {
         gsap.to(element, {
@@ -238,12 +241,12 @@ gsap.to(blackOverlay, {
             opacity: 1
         });
     });
-   
-  
+
+
     window.onbeforeunload = function () {
         window.scrollTo(0, 0);
     }
             
-     
+        
             
         
