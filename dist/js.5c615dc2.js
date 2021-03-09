@@ -6958,7 +6958,543 @@ TweenMaxWithCSS = gsapWithCSS.core.Tween;
 
 exports.TweenMax = TweenMaxWithCSS;
 exports.default = exports.gsap = gsapWithCSS;
-},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"node_modules/gsap/ScrollTrigger.js":[function(require,module,exports) {
+},{"./gsap-core.js":"node_modules/gsap/gsap-core.js","./CSSPlugin.js":"node_modules/gsap/CSSPlugin.js"}],"node_modules/gsap/utils/strings.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getText = getText;
+exports.splitInnerHTML = splitInnerHTML;
+exports.emojiSafeSplit = emojiSafeSplit;
+exports.emojiExp = void 0;
+
+/*!
+ * strings: 3.6.0
+ * https://greensock.com
+ *
+ * Copyright 2008-2021, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/* eslint-disable */
+var _trimExp = /(^\s+|\s+$)/g;
+var emojiExp = /([\uD800-\uDBFF][\uDC00-\uDFFF](?:[\u200D\uFE0F][\uD800-\uDBFF][\uDC00-\uDFFF]){2,}|\uD83D\uDC69(?:\u200D(?:(?:\uD83D\uDC69\u200D)?\uD83D\uDC67|(?:\uD83D\uDC69\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]\uFE0F|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDD6-\uDDDF])\u200D[\u2640\u2642]\uFE0F|\uD83C\uDDFD\uD83C\uDDF0|\uD83C\uDDF6\uD83C\uDDE6|\uD83C\uDDF4\uD83C\uDDF2|\uD83C\uDDE9(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C\uDDF7(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDE8(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F\u200D[\u2640\u2642]|(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642])\uFE0F|(?:\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\uD83D\uDC69\u200D[\u2695\u2696\u2708]|\uD83D\uDC68(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\u200D[\u2695\u2696\u2708]))\uFE0F|\uD83C\uDDF2(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83D\uDC69\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69]))|\uD83C\uDDF1(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDEF(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDED(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDEB(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|[#\*0-9]\uFE0F\u20E3|\uD83C\uDDE7(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C\uDDE6(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDFF(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDF5(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDFB(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDF3(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74|\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67)\uDB40\uDC7F|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]))|\uD83C\uDDF8(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDF0(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDFE(?:\uD83C[\uDDEA\uDDF9])|\uD83C\uDDEE(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDF9(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDEC(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDFA(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDEA(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDFC(?:\uD83C[\uDDEB\uDDF8])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u270A-\u270D]|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD30-\uDD36\uDDD1-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC68(?:\u200D(?:(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u26F9\u270A-\u270D]|\uD83C[\uDF85\uDFC2-\uDFC4\uDFC7\uDFCA-\uDFCC]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66-\uDC69\uDC6E\uDC70-\uDC78\uDC7C\uDC81-\uDC83\uDC85-\uDC87\uDCAA\uDD74\uDD75\uDD7A\uDD90\uDD95\uDD96\uDE45-\uDE47\uDE4B-\uDE4F\uDEA3\uDEB4-\uDEB6\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD26\uDD30-\uDD39\uDD3D\uDD3E\uDDD1-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])?|(?:[\u231A\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD\u25FE\u2614\u2615\u2648-\u2653\u267F\u2693\u26A1\u26AA\u26AB\u26BD\u26BE\u26C4\u26C5\u26CE\u26D4\u26EA\u26F2\u26F3\u26F5\u26FA\u26FD\u2705\u270A\u270B\u2728\u274C\u274E\u2753-\u2755\u2757\u2795-\u2797\u27B0\u27BF\u2B1B\u2B1C\u2B50\u2B55]|\uD83C[\uDC04\uDCCF\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF93\uDFA0-\uDFCA\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF4\uDFF8-\uDFFF]|\uD83D[\uDC00-\uDC3E\uDC40\uDC42-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDD7A\uDD95\uDD96\uDDA4\uDDFB-\uDE4F\uDE80-\uDEC5\uDECC\uDED0-\uDED2\uDEEB\uDEEC\uDEF4-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])|(?:[#\*0-9\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD7A\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED2\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])\uFE0F)/;
+exports.emojiExp = emojiExp;
+
+function getText(e) {
+  var type = e.nodeType,
+      result = "";
+
+  if (type === 1 || type === 9 || type === 11) {
+    if (typeof e.textContent === "string") {
+      return e.textContent;
+    } else {
+      for (e = e.firstChild; e; e = e.nextSibling) {
+        result += getText(e);
+      }
+    }
+  } else if (type === 3 || type === 4) {
+    return e.nodeValue;
+  }
+
+  return result;
+}
+
+function splitInnerHTML(element, delimiter, trim) {
+  var node = element.firstChild,
+      result = [];
+
+  while (node) {
+    if (node.nodeType === 3) {
+      result.push.apply(result, emojiSafeSplit((node.nodeValue + "").replace(/^\n+/g, "").replace(/\s+/g, " "), delimiter, trim));
+    } else if ((node.nodeName + "").toLowerCase() === "br") {
+      result[result.length - 1] += "<br>";
+    } else {
+      result.push(node.outerHTML);
+    }
+
+    node = node.nextSibling;
+  }
+
+  return result;
+}
+/*
+//smaller kb version that only handles the simpler emoji's, which is often perfectly adequate.
+
+let _emoji = "[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D]|[\uD800-\uDBFF][\uDC00-\uDFFF]",
+	_emojiExp = new RegExp(_emoji),
+	_emojiAndCharsExp = new RegExp(_emoji + "|.", "g"),
+	_emojiSafeSplit = (text, delimiter, trim) => {
+		if (trim) {
+			text = text.replace(_trimExp, "");
+		}
+		return ((delimiter === "" || !delimiter) && _emojiExp.test(text)) ? text.match(_emojiAndCharsExp) : text.split(delimiter || "");
+	};
+ */
+
+
+function emojiSafeSplit(text, delimiter, trim) {
+  text += ""; // make sure it's cast as a string. Someone may pass in a number.
+
+  if (trim) {
+    text = text.replace(_trimExp, "");
+  }
+
+  if (delimiter && delimiter !== "") {
+    return text.replace(/>/g, "&gt;").replace(/</g, "&lt;").split(delimiter);
+  }
+
+  var result = [],
+      l = text.length,
+      i = 0,
+      j,
+      character;
+
+  for (; i < l; i++) {
+    character = text.charAt(i);
+
+    if (character.charCodeAt(0) >= 0xD800 && character.charCodeAt(0) <= 0xDBFF || text.charCodeAt(i + 1) >= 0xFE00 && text.charCodeAt(i + 1) <= 0xFE0F) {
+      //special emoji characters use 2 or 4 unicode characters that we must keep together.
+      j = ((text.substr(i, 12).split(emojiExp) || [])[1] || "").length || 2;
+      character = text.substr(i, j);
+      result.emoji = 1;
+      i += j - 1;
+    }
+
+    result.push(character === ">" ? "&gt;" : character === "<" ? "&lt;" : character);
+  }
+
+  return result;
+}
+},{}],"node_modules/gsap/TextPlugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.TextPlugin = void 0;
+
+var _strings = require("./utils/strings.js");
+
+/*!
+ * TextPlugin 3.6.0
+ * https://greensock.com
+ *
+ * @license Copyright 2008-2021, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/* eslint-disable */
+var gsap,
+    _tempDiv,
+    _getGSAP = function _getGSAP() {
+  return gsap || typeof window !== "undefined" && (gsap = window.gsap) && gsap.registerPlugin && gsap;
+};
+
+var TextPlugin = {
+  version: "3.6.0",
+  name: "text",
+  init: function init(target, value, tween) {
+    var i = target.nodeName.toUpperCase(),
+        data = this,
+        _short,
+        text,
+        original,
+        j,
+        condensedText,
+        condensedOriginal,
+        aggregate,
+        s;
+
+    data.svg = target.getBBox && (i === "TEXT" || i === "TSPAN");
+
+    if (!("innerHTML" in target) && !data.svg) {
+      return false;
+    }
+
+    data.target = target;
+
+    if (typeof value !== "object") {
+      value = {
+        value: value
+      };
+    }
+
+    if (!("value" in value)) {
+      data.text = data.original = [""];
+      return;
+    }
+
+    data.delimiter = value.delimiter || "";
+    original = (0, _strings.splitInnerHTML)(target, data.delimiter);
+
+    if (!_tempDiv) {
+      _tempDiv = document.createElement("div");
+    }
+
+    _tempDiv.innerHTML = value.value;
+    text = (0, _strings.splitInnerHTML)(_tempDiv, data.delimiter);
+    data.from = tween._from;
+
+    if (data.from) {
+      i = original;
+      original = text;
+      text = i;
+    }
+
+    data.hasClass = !!(value.newClass || value.oldClass);
+    data.newClass = value.newClass;
+    data.oldClass = value.oldClass;
+    i = original.length - text.length;
+    _short = i < 0 ? original : text;
+    data.fillChar = value.fillChar || (value.padSpace ? "&nbsp;" : "");
+
+    if (i < 0) {
+      i = -i;
+    }
+
+    while (--i > -1) {
+      _short.push(data.fillChar);
+    }
+
+    if (value.type === "diff") {
+      j = 0;
+      condensedText = [];
+      condensedOriginal = [];
+      aggregate = "";
+
+      for (i = 0; i < text.length; i++) {
+        s = text[i];
+
+        if (s === original[i]) {
+          aggregate += s;
+        } else {
+          condensedText[j] = aggregate + s;
+          condensedOriginal[j++] = aggregate + original[i];
+          aggregate = "";
+        }
+      }
+
+      text = condensedText;
+      original = condensedOriginal;
+
+      if (aggregate) {
+        text.push(aggregate);
+        original.push(aggregate);
+      }
+    }
+
+    if (value.speed) {
+      tween.duration(Math.min(0.05 / value.speed * _short.length, value.maxDuration || 9999));
+    }
+
+    this.original = original;
+    this.text = text;
+
+    this._props.push("text");
+  },
+  render: function render(ratio, data) {
+    if (ratio > 1) {
+      ratio = 1;
+    } else if (ratio < 0) {
+      ratio = 0;
+    }
+
+    if (data.from) {
+      ratio = 1 - ratio;
+    }
+
+    var text = data.text,
+        hasClass = data.hasClass,
+        newClass = data.newClass,
+        oldClass = data.oldClass,
+        delimiter = data.delimiter,
+        target = data.target,
+        fillChar = data.fillChar,
+        original = data.original,
+        l = text.length,
+        i = ratio * l + 0.5 | 0,
+        applyNew,
+        applyOld,
+        str;
+
+    if (hasClass) {
+      applyNew = newClass && i;
+      applyOld = oldClass && i !== l;
+      str = (applyNew ? "<span class='" + newClass + "'>" : "") + text.slice(0, i).join(delimiter) + (applyNew ? "</span>" : "") + (applyOld ? "<span class='" + oldClass + "'>" : "") + delimiter + original.slice(i).join(delimiter) + (applyOld ? "</span>" : "");
+    } else {
+      str = text.slice(0, i).join(delimiter) + delimiter + original.slice(i).join(delimiter);
+    }
+
+    if (data.svg) {
+      //SVG text elements don't have an "innerHTML" in Microsoft browsers.
+      target.textContent = str;
+    } else {
+      target.innerHTML = fillChar === "&nbsp;" && ~str.indexOf("  ") ? str.split("  ").join("&nbsp;&nbsp;") : str;
+    }
+  }
+};
+exports.default = exports.TextPlugin = TextPlugin;
+TextPlugin.splitInnerHTML = _strings.splitInnerHTML;
+TextPlugin.emojiSafeSplit = _strings.emojiSafeSplit;
+TextPlugin.getText = _strings.getText;
+_getGSAP() && gsap.registerPlugin(TextPlugin);
+},{"./utils/strings.js":"node_modules/gsap/utils/strings.js"}],"node_modules/gsap/ScrollToPlugin.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.ScrollToPlugin = void 0;
+
+/*!
+ * ScrollToPlugin 3.6.0
+ * https://greensock.com
+ *
+ * @license Copyright 2008-2021, GreenSock. All rights reserved.
+ * Subject to the terms at https://greensock.com/standard-license or for
+ * Club GreenSock members, the agreement issued with that membership.
+ * @author: Jack Doyle, jack@greensock.com
+*/
+
+/* eslint-disable */
+var gsap,
+    _coreInitted,
+    _window,
+    _docEl,
+    _body,
+    _toArray,
+    _config,
+    _windowExists = function _windowExists() {
+  return typeof window !== "undefined";
+},
+    _getGSAP = function _getGSAP() {
+  return gsap || _windowExists() && (gsap = window.gsap) && gsap.registerPlugin && gsap;
+},
+    _isString = function _isString(value) {
+  return typeof value === "string";
+},
+    _isFunction = function _isFunction(value) {
+  return typeof value === "function";
+},
+    _max = function _max(element, axis) {
+  var dim = axis === "x" ? "Width" : "Height",
+      scroll = "scroll" + dim,
+      client = "client" + dim;
+  return element === _window || element === _docEl || element === _body ? Math.max(_docEl[scroll], _body[scroll]) - (_window["inner" + dim] || _docEl[client] || _body[client]) : element[scroll] - element["offset" + dim];
+},
+    _buildGetter = function _buildGetter(e, axis) {
+  //pass in an element and an axis ("x" or "y") and it'll return a getter function for the scroll position of that element (like scrollTop or scrollLeft, although if the element is the window, it'll use the pageXOffset/pageYOffset or the documentElement's scrollTop/scrollLeft or document.body's. Basically this streamlines things and makes a very fast getter across browsers.
+  var p = "scroll" + (axis === "x" ? "Left" : "Top");
+
+  if (e === _window) {
+    if (e.pageXOffset != null) {
+      p = "page" + axis.toUpperCase() + "Offset";
+    } else {
+      e = _docEl[p] != null ? _docEl : _body;
+    }
+  }
+
+  return function () {
+    return e[p];
+  };
+},
+    _clean = function _clean(value, index, target, targets) {
+  _isFunction(value) && (value = value(index, target, targets));
+
+  if (typeof value !== "object") {
+    return _isString(value) && value !== "max" && value.charAt(1) !== "=" ? {
+      x: value,
+      y: value
+    } : {
+      y: value
+    }; //if we don't receive an object as the parameter, assume the user intends "y".
+  } else if (value.nodeType) {
+    return {
+      y: value,
+      x: value
+    };
+  } else {
+    var result = {},
+        p;
+
+    for (p in value) {
+      p !== "onAutoKill" && (result[p] = _isFunction(value[p]) ? value[p](index, target, targets) : value[p]);
+    }
+
+    return result;
+  }
+},
+    _getOffset = function _getOffset(element, container) {
+  element = _toArray(element)[0];
+
+  if (!element || !element.getBoundingClientRect) {
+    return console.warn("scrollTo target doesn't exist. Using 0") || {
+      x: 0,
+      y: 0
+    };
+  }
+
+  var rect = element.getBoundingClientRect(),
+      isRoot = !container || container === _window || container === _body,
+      cRect = isRoot ? {
+    top: _docEl.clientTop - (_window.pageYOffset || _docEl.scrollTop || _body.scrollTop || 0),
+    left: _docEl.clientLeft - (_window.pageXOffset || _docEl.scrollLeft || _body.scrollLeft || 0)
+  } : container.getBoundingClientRect(),
+      offsets = {
+    x: rect.left - cRect.left,
+    y: rect.top - cRect.top
+  };
+
+  if (!isRoot && container) {
+    //only add the current scroll position if it's not the window/body.
+    offsets.x += _buildGetter(container, "x")();
+    offsets.y += _buildGetter(container, "y")();
+  }
+
+  return offsets;
+},
+    _parseVal = function _parseVal(value, target, axis, currentVal, offset) {
+  return !isNaN(value) && typeof value !== "object" ? parseFloat(value) - offset : _isString(value) && value.charAt(1) === "=" ? parseFloat(value.substr(2)) * (value.charAt(0) === "-" ? -1 : 1) + currentVal - offset : value === "max" ? _max(target, axis) - offset : Math.min(_max(target, axis), _getOffset(value, target)[axis] - offset);
+},
+    _initCore = function _initCore() {
+  gsap = _getGSAP();
+
+  if (_windowExists() && gsap && document.body) {
+    _window = window;
+    _body = document.body;
+    _docEl = document.documentElement;
+    _toArray = gsap.utils.toArray;
+    gsap.config({
+      autoKillThreshold: 7
+    });
+    _config = gsap.config();
+    _coreInitted = 1;
+  }
+};
+
+var ScrollToPlugin = {
+  version: "3.6.0",
+  name: "scrollTo",
+  rawVars: 1,
+  register: function register(core) {
+    gsap = core;
+
+    _initCore();
+  },
+  init: function init(target, value, tween, index, targets) {
+    _coreInitted || _initCore();
+    var data = this;
+    data.isWin = target === _window;
+    data.target = target;
+    data.tween = tween;
+    value = _clean(value, index, target, targets);
+    data.vars = value;
+    data.autoKill = !!value.autoKill;
+    data.getX = _buildGetter(target, "x");
+    data.getY = _buildGetter(target, "y");
+    data.x = data.xPrev = data.getX();
+    data.y = data.yPrev = data.getY();
+
+    if (value.x != null) {
+      data.add(data, "x", data.x, _parseVal(value.x, target, "x", data.x, value.offsetX || 0), index, targets, Math.round);
+
+      data._props.push("scrollTo_x");
+    } else {
+      data.skipX = 1;
+    }
+
+    if (value.y != null) {
+      data.add(data, "y", data.y, _parseVal(value.y, target, "y", data.y, value.offsetY || 0), index, targets, Math.round);
+
+      data._props.push("scrollTo_y");
+    } else {
+      data.skipY = 1;
+    }
+  },
+  render: function render(ratio, data) {
+    var pt = data._pt,
+        target = data.target,
+        tween = data.tween,
+        autoKill = data.autoKill,
+        xPrev = data.xPrev,
+        yPrev = data.yPrev,
+        isWin = data.isWin,
+        x,
+        y,
+        yDif,
+        xDif,
+        threshold;
+
+    while (pt) {
+      pt.r(ratio, pt.d);
+      pt = pt._next;
+    }
+
+    x = isWin || !data.skipX ? data.getX() : xPrev;
+    y = isWin || !data.skipY ? data.getY() : yPrev;
+    yDif = y - yPrev;
+    xDif = x - xPrev;
+    threshold = _config.autoKillThreshold;
+
+    if (data.x < 0) {
+      //can't scroll to a position less than 0! Might happen if someone uses a Back.easeOut or Elastic.easeOut when scrolling back to the top of the page (for example)
+      data.x = 0;
+    }
+
+    if (data.y < 0) {
+      data.y = 0;
+    }
+
+    if (autoKill) {
+      //note: iOS has a bug that throws off the scroll by several pixels, so we need to check if it's within 7 pixels of the previous one that we set instead of just looking for an exact match.
+      if (!data.skipX && (xDif > threshold || xDif < -threshold) && x < _max(target, "x")) {
+        data.skipX = 1; //if the user scrolls separately, we should stop tweening!
+      }
+
+      if (!data.skipY && (yDif > threshold || yDif < -threshold) && y < _max(target, "y")) {
+        data.skipY = 1; //if the user scrolls separately, we should stop tweening!
+      }
+
+      if (data.skipX && data.skipY) {
+        tween.kill();
+        data.vars.onAutoKill && data.vars.onAutoKill.apply(tween, data.vars.onAutoKillParams || []);
+      }
+    }
+
+    if (isWin) {
+      _window.scrollTo(!data.skipX ? data.x : x, !data.skipY ? data.y : y);
+    } else {
+      data.skipY || (target.scrollTop = data.y);
+      data.skipX || (target.scrollLeft = data.x);
+    }
+
+    data.xPrev = data.x;
+    data.yPrev = data.y;
+  },
+  kill: function kill(property) {
+    var both = property === "scrollTo";
+
+    if (both || property === "scrollTo_x") {
+      this.skipX = 1;
+    }
+
+    if (both || property === "scrollTo_y") {
+      this.skipY = 1;
+    }
+  }
+};
+exports.default = exports.ScrollToPlugin = ScrollToPlugin;
+ScrollToPlugin.max = _max;
+ScrollToPlugin.getOffset = _getOffset;
+ScrollToPlugin.buildGetter = _buildGetter;
+_getGSAP() && gsap.registerPlugin(ScrollToPlugin);
+},{}],"node_modules/gsap/ScrollTrigger.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8636,305 +9172,21 @@ ScrollTrigger.sort = function (func) {
 };
 
 _getGSAP() && gsap.registerPlugin(ScrollTrigger);
-},{}],"node_modules/gsap/utils/strings.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getText = getText;
-exports.splitInnerHTML = splitInnerHTML;
-exports.emojiSafeSplit = emojiSafeSplit;
-exports.emojiExp = void 0;
-
-/*!
- * strings: 3.6.0
- * https://greensock.com
- *
- * Copyright 2008-2021, GreenSock. All rights reserved.
- * Subject to the terms at https://greensock.com/standard-license or for
- * Club GreenSock members, the agreement issued with that membership.
- * @author: Jack Doyle, jack@greensock.com
-*/
-
-/* eslint-disable */
-var _trimExp = /(^\s+|\s+$)/g;
-var emojiExp = /([\uD800-\uDBFF][\uDC00-\uDFFF](?:[\u200D\uFE0F][\uD800-\uDBFF][\uDC00-\uDFFF]){2,}|\uD83D\uDC69(?:\u200D(?:(?:\uD83D\uDC69\u200D)?\uD83D\uDC67|(?:\uD83D\uDC69\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]\uFE0F|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDD6-\uDDDF])\u200D[\u2640\u2642]\uFE0F|\uD83C\uDDFD\uD83C\uDDF0|\uD83C\uDDF6\uD83C\uDDE6|\uD83C\uDDF4\uD83C\uDDF2|\uD83C\uDDE9(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C\uDDF7(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDE8(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F\u200D[\u2640\u2642]|(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642])\uFE0F|(?:\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\uD83D\uDC69\u200D[\u2695\u2696\u2708]|\uD83D\uDC68(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\u200D[\u2695\u2696\u2708]))\uFE0F|\uD83C\uDDF2(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83D\uDC69\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69]))|\uD83C\uDDF1(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDEF(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDED(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDEB(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|[#\*0-9]\uFE0F\u20E3|\uD83C\uDDE7(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C\uDDE6(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDFF(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDF5(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDFB(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDF3(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74|\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67)\uDB40\uDC7F|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]))|\uD83C\uDDF8(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDF0(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDFE(?:\uD83C[\uDDEA\uDDF9])|\uD83C\uDDEE(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDF9(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDEC(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDFA(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDEA(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDFC(?:\uD83C[\uDDEB\uDDF8])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u270A-\u270D]|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD30-\uDD36\uDDD1-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC68(?:\u200D(?:(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u26F9\u270A-\u270D]|\uD83C[\uDF85\uDFC2-\uDFC4\uDFC7\uDFCA-\uDFCC]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66-\uDC69\uDC6E\uDC70-\uDC78\uDC7C\uDC81-\uDC83\uDC85-\uDC87\uDCAA\uDD74\uDD75\uDD7A\uDD90\uDD95\uDD96\uDE45-\uDE47\uDE4B-\uDE4F\uDEA3\uDEB4-\uDEB6\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD26\uDD30-\uDD39\uDD3D\uDD3E\uDDD1-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])?|(?:[\u231A\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD\u25FE\u2614\u2615\u2648-\u2653\u267F\u2693\u26A1\u26AA\u26AB\u26BD\u26BE\u26C4\u26C5\u26CE\u26D4\u26EA\u26F2\u26F3\u26F5\u26FA\u26FD\u2705\u270A\u270B\u2728\u274C\u274E\u2753-\u2755\u2757\u2795-\u2797\u27B0\u27BF\u2B1B\u2B1C\u2B50\u2B55]|\uD83C[\uDC04\uDCCF\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF93\uDFA0-\uDFCA\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF4\uDFF8-\uDFFF]|\uD83D[\uDC00-\uDC3E\uDC40\uDC42-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDD7A\uDD95\uDD96\uDDA4\uDDFB-\uDE4F\uDE80-\uDEC5\uDECC\uDED0-\uDED2\uDEEB\uDEEC\uDEF4-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])|(?:[#\*0-9\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD7A\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED2\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])\uFE0F)/;
-exports.emojiExp = emojiExp;
-
-function getText(e) {
-  var type = e.nodeType,
-      result = "";
-
-  if (type === 1 || type === 9 || type === 11) {
-    if (typeof e.textContent === "string") {
-      return e.textContent;
-    } else {
-      for (e = e.firstChild; e; e = e.nextSibling) {
-        result += getText(e);
-      }
-    }
-  } else if (type === 3 || type === 4) {
-    return e.nodeValue;
-  }
-
-  return result;
-}
-
-function splitInnerHTML(element, delimiter, trim) {
-  var node = element.firstChild,
-      result = [];
-
-  while (node) {
-    if (node.nodeType === 3) {
-      result.push.apply(result, emojiSafeSplit((node.nodeValue + "").replace(/^\n+/g, "").replace(/\s+/g, " "), delimiter, trim));
-    } else if ((node.nodeName + "").toLowerCase() === "br") {
-      result[result.length - 1] += "<br>";
-    } else {
-      result.push(node.outerHTML);
-    }
-
-    node = node.nextSibling;
-  }
-
-  return result;
-}
-/*
-//smaller kb version that only handles the simpler emoji's, which is often perfectly adequate.
-
-let _emoji = "[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D]|[\uD800-\uDBFF][\uDC00-\uDFFF]",
-	_emojiExp = new RegExp(_emoji),
-	_emojiAndCharsExp = new RegExp(_emoji + "|.", "g"),
-	_emojiSafeSplit = (text, delimiter, trim) => {
-		if (trim) {
-			text = text.replace(_trimExp, "");
-		}
-		return ((delimiter === "" || !delimiter) && _emojiExp.test(text)) ? text.match(_emojiAndCharsExp) : text.split(delimiter || "");
-	};
- */
-
-
-function emojiSafeSplit(text, delimiter, trim) {
-  text += ""; // make sure it's cast as a string. Someone may pass in a number.
-
-  if (trim) {
-    text = text.replace(_trimExp, "");
-  }
-
-  if (delimiter && delimiter !== "") {
-    return text.replace(/>/g, "&gt;").replace(/</g, "&lt;").split(delimiter);
-  }
-
-  var result = [],
-      l = text.length,
-      i = 0,
-      j,
-      character;
-
-  for (; i < l; i++) {
-    character = text.charAt(i);
-
-    if (character.charCodeAt(0) >= 0xD800 && character.charCodeAt(0) <= 0xDBFF || text.charCodeAt(i + 1) >= 0xFE00 && text.charCodeAt(i + 1) <= 0xFE0F) {
-      //special emoji characters use 2 or 4 unicode characters that we must keep together.
-      j = ((text.substr(i, 12).split(emojiExp) || [])[1] || "").length || 2;
-      character = text.substr(i, j);
-      result.emoji = 1;
-      i += j - 1;
-    }
-
-    result.push(character === ">" ? "&gt;" : character === "<" ? "&lt;" : character);
-  }
-
-  return result;
-}
-},{}],"node_modules/gsap/TextPlugin.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.TextPlugin = void 0;
-
-var _strings = require("./utils/strings.js");
-
-/*!
- * TextPlugin 3.6.0
- * https://greensock.com
- *
- * @license Copyright 2008-2021, GreenSock. All rights reserved.
- * Subject to the terms at https://greensock.com/standard-license or for
- * Club GreenSock members, the agreement issued with that membership.
- * @author: Jack Doyle, jack@greensock.com
-*/
-
-/* eslint-disable */
-var gsap,
-    _tempDiv,
-    _getGSAP = function _getGSAP() {
-  return gsap || typeof window !== "undefined" && (gsap = window.gsap) && gsap.registerPlugin && gsap;
-};
-
-var TextPlugin = {
-  version: "3.6.0",
-  name: "text",
-  init: function init(target, value, tween) {
-    var i = target.nodeName.toUpperCase(),
-        data = this,
-        _short,
-        text,
-        original,
-        j,
-        condensedText,
-        condensedOriginal,
-        aggregate,
-        s;
-
-    data.svg = target.getBBox && (i === "TEXT" || i === "TSPAN");
-
-    if (!("innerHTML" in target) && !data.svg) {
-      return false;
-    }
-
-    data.target = target;
-
-    if (typeof value !== "object") {
-      value = {
-        value: value
-      };
-    }
-
-    if (!("value" in value)) {
-      data.text = data.original = [""];
-      return;
-    }
-
-    data.delimiter = value.delimiter || "";
-    original = (0, _strings.splitInnerHTML)(target, data.delimiter);
-
-    if (!_tempDiv) {
-      _tempDiv = document.createElement("div");
-    }
-
-    _tempDiv.innerHTML = value.value;
-    text = (0, _strings.splitInnerHTML)(_tempDiv, data.delimiter);
-    data.from = tween._from;
-
-    if (data.from) {
-      i = original;
-      original = text;
-      text = i;
-    }
-
-    data.hasClass = !!(value.newClass || value.oldClass);
-    data.newClass = value.newClass;
-    data.oldClass = value.oldClass;
-    i = original.length - text.length;
-    _short = i < 0 ? original : text;
-    data.fillChar = value.fillChar || (value.padSpace ? "&nbsp;" : "");
-
-    if (i < 0) {
-      i = -i;
-    }
-
-    while (--i > -1) {
-      _short.push(data.fillChar);
-    }
-
-    if (value.type === "diff") {
-      j = 0;
-      condensedText = [];
-      condensedOriginal = [];
-      aggregate = "";
-
-      for (i = 0; i < text.length; i++) {
-        s = text[i];
-
-        if (s === original[i]) {
-          aggregate += s;
-        } else {
-          condensedText[j] = aggregate + s;
-          condensedOriginal[j++] = aggregate + original[i];
-          aggregate = "";
-        }
-      }
-
-      text = condensedText;
-      original = condensedOriginal;
-
-      if (aggregate) {
-        text.push(aggregate);
-        original.push(aggregate);
-      }
-    }
-
-    if (value.speed) {
-      tween.duration(Math.min(0.05 / value.speed * _short.length, value.maxDuration || 9999));
-    }
-
-    this.original = original;
-    this.text = text;
-
-    this._props.push("text");
-  },
-  render: function render(ratio, data) {
-    if (ratio > 1) {
-      ratio = 1;
-    } else if (ratio < 0) {
-      ratio = 0;
-    }
-
-    if (data.from) {
-      ratio = 1 - ratio;
-    }
-
-    var text = data.text,
-        hasClass = data.hasClass,
-        newClass = data.newClass,
-        oldClass = data.oldClass,
-        delimiter = data.delimiter,
-        target = data.target,
-        fillChar = data.fillChar,
-        original = data.original,
-        l = text.length,
-        i = ratio * l + 0.5 | 0,
-        applyNew,
-        applyOld,
-        str;
-
-    if (hasClass) {
-      applyNew = newClass && i;
-      applyOld = oldClass && i !== l;
-      str = (applyNew ? "<span class='" + newClass + "'>" : "") + text.slice(0, i).join(delimiter) + (applyNew ? "</span>" : "") + (applyOld ? "<span class='" + oldClass + "'>" : "") + delimiter + original.slice(i).join(delimiter) + (applyOld ? "</span>" : "");
-    } else {
-      str = text.slice(0, i).join(delimiter) + delimiter + original.slice(i).join(delimiter);
-    }
-
-    if (data.svg) {
-      //SVG text elements don't have an "innerHTML" in Microsoft browsers.
-      target.textContent = str;
-    } else {
-      target.innerHTML = fillChar === "&nbsp;" && ~str.indexOf("  ") ? str.split("  ").join("&nbsp;&nbsp;") : str;
-    }
-  }
-};
-exports.default = exports.TextPlugin = TextPlugin;
-TextPlugin.splitInnerHTML = _strings.splitInnerHTML;
-TextPlugin.emojiSafeSplit = _strings.emojiSafeSplit;
-TextPlugin.getText = _strings.getText;
-_getGSAP() && gsap.registerPlugin(TextPlugin);
-},{"./utils/strings.js":"node_modules/gsap/utils/strings.js"}],"assets/js/index.js":[function(require,module,exports) {
+},{}],"assets/js/index.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = require("gsap");
 
-var _ScrollTrigger = require("gsap/ScrollTrigger");
-
 var _TextPlugin = require("gsap/TextPlugin");
+
+var _ScrollToPlugin = require("gsap/ScrollToPlugin");
+
+var _ScrollTrigger = require("gsap/ScrollTrigger");
 
 var _require = require("core-js/fn/array"),
     forEach = _require.forEach;
 
-_gsap.gsap.registerPlugin(_ScrollTrigger.ScrollTrigger, _TextPlugin.TextPlugin);
+_gsap.gsap.registerPlugin(_TextPlugin.TextPlugin, _ScrollToPlugin.ScrollToPlugin, _ScrollTrigger.ScrollTrigger);
 /* GET ALL CLASSES THAT ARE NEEDED */
 
 
@@ -8944,56 +9196,23 @@ var rightCloud = document.querySelector("#Cloud_right_1_");
 var sun = document.querySelector("#Sun_1_ circle");
 var sky = document.querySelector("#Sky");
 var body = document.querySelector("body");
+var tent = document.querySelector("#Tent_2_");
+var sign = document.querySelector("#Sign-name");
+var queryString = window.location.search; //http://localhost:1234/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
 
-_gsap.gsap.to(leftCloud, {
-  scrollTrigger: {
-    trigger: "body",
-    start: "top -350px",
-    end: "top -1000px",
-    scrub: 1
-  },
-  x: 500,
-  ease: "none"
-});
-
-_gsap.gsap.to(rightCloud, {
-  scrollTrigger: {
-    trigger: "body",
-    start: "top -350px",
-    end: "top -1000px",
-    scrub: 1
-  },
-  x: -500,
-  ease: "none"
-});
-
-_gsap.gsap.to(sun, {
-  scrollTrigger: {
-    trigger: "body",
-    start: "top -1400px",
-    end: "top -2800px",
-    scrub: 1
-  },
-  x: 500,
-  y: 400,
-  ease: "none"
-});
-
-_gsap.gsap.to(blackOverlay, {
-  scrollTrigger: {
-    trigger: "body",
-    start: "top -2400px",
-    end: "top -3000px",
-    scrub: 1
-  },
-  ease: "none",
-  opacity: 0.7
-});
+var urlParams = new URLSearchParams(queryString);
+var name = urlParams.get('name');
+var email = urlParams.get('email');
+var phone = urlParams.get('phone');
+console.log(name, email, phone);
+var signText = document.querySelector(".hello-name");
+var hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hyālō', 'Ni Hao', 'Moi', 'Aloha', 'Privet', 'Ciao'];
 
 function createElement(args) {
   var svg = document.querySelector(args.targetDiv);
   var element = document.createElementNS("http://www.w3.org/2000/svg", args.type);
-  var text = document.createTextNode(args.text);
+  var txt = document.createElement('div');
+  element.innerHTML = "".concat(args.text);
   element.setAttribute("x", args.x);
   element.setAttribute("y", args.y);
   element.setAttribute("fill", args.fillColor);
@@ -9003,7 +9222,8 @@ function createElement(args) {
   element.setAttribute("class", args.class);
   element.setAttribute("text-anchor", "middle");
   element.setAttribute("dominant-baseline", "middle");
-  element.appendChild(text);
+  element.setAttribute("width", "20");
+  element.appendChild(txt);
   svg.prepend(element);
 }
 
@@ -9012,32 +9232,32 @@ var elementsToCreate = [{
   'type': 'text',
   'text': 'GLAMPA',
   'x': '50%',
-  'y': '310',
+  'y': '240',
   'fillColor': 'black',
-  'fontFamily': 'NixieOne',
-  'fontSize': '30',
+  'fontFamily': 'Abel',
+  'fontSize': '80',
   'opacity': '0',
   'class': 'cloudText'
 }, {
   'targetDiv': '#Clouds',
   'type': 'text',
-  'text': 'MED HAPPIE CAMP',
+  'text': 'med Happie Camp',
   'x': '50%',
-  'y': '340',
+  'y': '280',
   'fillColor': 'black',
-  'fontFamily': 'NixieOne',
+  'fontFamily': 'Nixie One',
   'fontSize': '20',
   'opacity': '0',
   'class': 'cloudText'
 }, {
   'targetDiv': '#Clouds',
   'type': 'text',
-  'text': '2-4 Juli',
+  'text': '2-4 juli',
   'x': '50%',
-  'y': '370',
+  'y': '320',
   'fillColor': 'black',
-  'fontFamily': 'NixieOne',
-  'fontSize': '30',
+  'fontFamily': 'Nixie One',
+  'fontSize': '40',
   'opacity': '0',
   'class': 'cloudText'
 }];
@@ -9046,7 +9266,138 @@ for (var element in elementsToCreate) {
   createElement(elementsToCreate[element]);
 }
 
-var textBehindCloud = document.querySelectorAll("#Clouds text");
+var textBehindCloud = _gsap.gsap.utils.toArray(".cloudText");
+
+setInterval(function () {
+  var rand = Math.floor(Math.random() * hiText.length);
+  document.querySelector(".helloHiHola").textContent = "".concat(hiText[rand], " ").concat(name);
+}, 2000); // LEFT 1,2,3,1
+// RIGHT 4,5,1
+
+var tree1_1 = document.querySelector("#tree1_1_");
+var tree2_1 = document.querySelector("#tree2_1_");
+var tree3_1 = document.querySelector("#tree3_1_");
+var tree4_1 = document.querySelector("#tree4_1_");
+var tree5_1 = document.querySelector("#tree5_1_");
+var TreeGreen1_1 = document.querySelector("#Tree-green1_1_");
+var TreeGreen2_1 = document.querySelector("#Tree-green2_1_");
+var contactForm = document.querySelector(".contactForm");
+var longText = document.querySelector("#longText");
+
+_gsap.gsap.timeline().from(tree1_1, {
+  duration: 0.2,
+  y: 160,
+  rotation: -90,
+  transformOrigin: "center bottom"
+}).from(tree4_1, {
+  duration: 0.2,
+  y: 0,
+  rotation: 90,
+  transformOrigin: "center bottom"
+}).from(tree3_1, {
+  duration: 0.2,
+  y: 160,
+  rotation: -90,
+  transformOrigin: "center bottom"
+}).from(tree5_1, {
+  duration: 0.2,
+  y: 0,
+  rotation: 90,
+  transformOrigin: "center bottom"
+}).from(tree2_1, {
+  duration: 0.2,
+  y: 160,
+  rotation: -90,
+  transformOrigin: "center bottom"
+}) // .from(TreeGreen1_1, {duration:0.2, y:160, rotation:-90, transformOrigin:"bottom left"})
+// .from(TreeGreen2_1, {duration:0.2, y:160, rotation:90, transformOrigin:"bottom"})
+.from(leftCloud, {
+  x: -500,
+  duration: 0.8
+}).from(rightCloud, {
+  x: 500,
+  duration: 0.8
+}, "<").to(leftCloud, {
+  immediateRender: false,
+  overwrite: 'auto',
+  scrollTrigger: {
+    trigger: 'body',
+    start: "top -350px",
+    end: "top -1000px",
+    scrub: true
+  },
+  x: 500
+}).to(rightCloud, {
+  immediateRender: false,
+  overwrite: 'auto',
+  scrollTrigger: {
+    trigger: 'body',
+    start: "top -350px",
+    end: "top -1000px",
+    scrub: true
+  },
+  x: -500
+}).from(sign, {
+  duration: 0.8,
+  rotation: 90,
+  transformOrigin: "center bottom",
+  ease: "bounce.out"
+}, "+=1.5");
+
+_gsap.gsap.to(sun, {
+  scrollTrigger: {
+    trigger: "body",
+    start: "top -1400px",
+    end: "top -2800px",
+    scrub: 1
+  },
+  x: 500,
+  y: 600,
+  ease: "none"
+});
+
+_gsap.gsap.to(blackOverlay, {
+  scrollTrigger: {
+    trigger: "body",
+    start: "top -2000px",
+    end: "top -3000px",
+    scrub: 1
+  },
+  onComplete: function onComplete() {
+    _gsap.gsap.fromTo(contactForm, {
+      x: -500
+    }, {
+      opacity: 1,
+      x: 0,
+      onComplete: function onComplete() {
+        textBehindCloud.forEach(function (element) {
+          console.log(element);
+        });
+      }
+    });
+  },
+  onReverseComplete: function onReverseComplete() {
+    _gsap.gsap.to(contactForm, {
+      opacity: 0,
+      duration: 0
+    });
+  },
+  opacity: 0.7
+});
+
+var welcomeText = document.querySelector("#longText");
+
+_gsap.gsap.to(welcomeText, {
+  scrollTrigger: {
+    trigger: "body",
+    start: "top -350px",
+    end: "top -800px",
+    scrub: 1
+  },
+  ease: "none",
+  y: 12
+});
+
 textBehindCloud.forEach(function (element) {
   _gsap.gsap.to(element, {
     scrollTrigger: {
@@ -9063,7 +9414,7 @@ textBehindCloud.forEach(function (element) {
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
-},{"core-js/fn/array":"node_modules/core-js/fn/array/index.js","gsap":"node_modules/gsap/index.js","gsap/ScrollTrigger":"node_modules/gsap/ScrollTrigger.js","gsap/TextPlugin":"node_modules/gsap/TextPlugin.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/fn/array":"node_modules/core-js/fn/array/index.js","gsap":"node_modules/gsap/index.js","gsap/TextPlugin":"node_modules/gsap/TextPlugin.js","gsap/ScrollToPlugin":"node_modules/gsap/ScrollToPlugin.js","gsap/ScrollTrigger":"node_modules/gsap/ScrollTrigger.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9091,7 +9442,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51950" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51665" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
