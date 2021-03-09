@@ -3,7 +3,7 @@
 
 const { forEach } = require("core-js/fn/array");
 
-import { gsap } from "gsap";
+import { gsap } from "gsap.mjs";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
