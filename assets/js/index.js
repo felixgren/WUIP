@@ -1,15 +1,16 @@
 "use strict";
 
+// import { gsap } from "../../node_modules/gsap/all.js";
+// import { TextPlugin } from "../../node_modules/gsap/TextPlugin.js";
+// import { ScrollToPlugin } from "../../node_modules/gsap/ScrollToPlugin.js";
+// import { ScrollTrigger } from "../../node_modules/gsap/ScrollTrigger.js";
 
-const { forEach } = require("core-js/fn/array");
+// import { gsap } from "gsap";
+// import { TextPlugin } from "gsap/TextPlugin";
+// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { gsap } from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-
-gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
+// gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
 
 /* GET ALL CLASSES THAT ARE NEEDED */
 const blackOverlay = document.querySelector(".blackImageCover");
@@ -27,11 +28,11 @@ const queryString = window.location.search;
 //http://localhost:1234/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
 const urlParams = new URLSearchParams(queryString);
 
-const name = urlParams.get('name');
+const guestName = urlParams.get('name');
 const email = urlParams.get('email');
 const phone = urlParams.get('phone');
 
-document.querySelector(".name").value = name;
+document.querySelector(".name").value = guestName;
 document.querySelector(".email").value = email;
 document.querySelector(".phone").value = phone;
 
@@ -39,7 +40,7 @@ let hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hei', 'Ni Hao', 'Moi', 'Aloha', 'Pr
 
 
 function createElement(args){
-    let svg = document.querySelector(args.targetDiv);
+    let svg = document.querySelector("#Clouds");
     let element = document.createElementNS("http://www.w3.org/2000/svg", args.type);
     let txt = document.createElement('div');
     element.innerHTML = `${args.text}`;
@@ -54,6 +55,7 @@ function createElement(args){
     element.setAttribute("dominant-baseline", "middle");
     element.setAttribute("width", "20");
 
+    console.log(svg, element);
     element.appendChild(txt);
     svg.prepend(element);
 }
@@ -107,7 +109,7 @@ const textBehindCloud = gsap.utils.toArray(".cloudText");
 
 setInterval(function() {
   let rand = Math.floor(Math.random() * hiText.length);
-  document.querySelector(".hello-name").textContent = `${hiText[rand]} ${name}` ;
+  document.querySelector(".hello-name").textContent = `${hiText[rand]} ${guestName}` ;
 }, 2000);
 
 // LEFT 1,2,3,1

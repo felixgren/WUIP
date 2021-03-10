@@ -11,7 +11,7 @@
     *{
 		margin: 0;
 		box-sizing: border-box;
-        // font-family: 'Nixie One';
+        /* // font-family: 'Nixie One'; */
 	}
 	
 	.contactForm{
@@ -24,10 +24,10 @@
 		border-radius: 50px;
 		background-color: rgba(255, 255, 255, .15);
 		text-align: center;
-		// backdrop-filter: blur(10px);
+		/* // backdrop-filter: blur(10px); */
 		opacity: 0;
 		
-
+	}
 		.entries{
 			display: flex;
 			align-items: center;
@@ -76,7 +76,7 @@
 			border: 0;
 			box-shadow: 5px 10px 18px #888888;
 		}
-	}
+	
 
 
     .page{
@@ -136,7 +136,6 @@
 		height: 8px;
 		margin: 10px;
 		background-color: #fff;
-		// transition: all 0.3s ease;
 	  }
 
 	.downArrow image{
