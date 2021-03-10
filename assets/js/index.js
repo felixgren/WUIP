@@ -3,7 +3,7 @@
 
 const { forEach } = require("core-js/fn/array");
 
-import { gsap } from "gsap.mjs";
+import { gsap } from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -35,7 +35,7 @@ document.querySelector(".name").value = name;
 document.querySelector(".email").value = email;
 document.querySelector(".phone").value = phone;
 
-let hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hyālō', 'Ni Hao', 'Moi', 'Aloha', 'Privet', 'Ciao'];
+let hiText = ['Hi', 'Hola', 'Hello', 'Hej', 'Hei', 'Ni Hao', 'Moi', 'Aloha', 'Privet', 'Ciao'];
 
 
 function createElement(args){
@@ -196,9 +196,6 @@ gsap.to(blackOverlay, {
                           
                         })
                         // page.append(element);
-                        
-                        
-                        console.log(element);
                     })
                 }
             }

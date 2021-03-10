@@ -1,12 +1,13 @@
 {
+  "type": "module",
   "name": "WUIP",
   "version": "1.0.0",
   "description": "School project with IP",
-  "main": "main.js",
+  "main": "main.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cleanup": "rm -rf .cache dist",
-    "dev": "npm run cleanup && parcel ./index.html",
+    "dev": "npm run cleanup && parcel build ./index.html",
     "build": "parcel ./index.html"
   },
   "repository": {
@@ -30,6 +31,5 @@
   },
   "dependencies": {
     "gsap": "^3.6.0"
-  },
-  "type": "module"
+  }
 }
