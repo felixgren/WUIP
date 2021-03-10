@@ -52,7 +52,6 @@ function createElement(args){
     element.setAttribute("dominant-baseline", "middle");
     element.setAttribute("width", "20");
 
-    console.log(svg, element);
     element.appendChild(txt);
     svg.prepend(element);
 }
