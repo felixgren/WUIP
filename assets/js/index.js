@@ -1,16 +1,13 @@
 "use strict";
 
-// import { gsap } from "../../node_modules/gsap/all.js";
-// import { TextPlugin } from "../../node_modules/gsap/TextPlugin.js";
-// import { ScrollToPlugin } from "../../node_modules/gsap/ScrollToPlugin.js";
-// import { ScrollTrigger } from "../../node_modules/gsap/ScrollTrigger.js";
+import { gsap } from "../../node_modules/gsap/all.js";
+import { TextPlugin } from "../../node_modules/gsap/TextPlugin.js";
+import { ScrollToPlugin } from "../../node_modules/gsap/ScrollToPlugin.js";
+import { ScrollTrigger } from "../../node_modules/gsap/ScrollTrigger.js";
 
-// import { gsap } from "gsap";
-// import { TextPlugin } from "gsap/TextPlugin";
-// import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-// import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
+
+gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
 
 /* GET ALL CLASSES THAT ARE NEEDED */
 const blackOverlay = document.querySelector(".blackImageCover");
