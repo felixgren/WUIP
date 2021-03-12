@@ -106,8 +106,7 @@ gsap
     rotation: -90,
     transformOrigin: "center bottom",
   })
-  // .from(TreeGreen1_1, {duration:0.2, y:160, rotation:-90, transformOrigin:"bottom left"})
-  // .from(TreeGreen2_1, {duration:0.2, y:160, rotation:90, transformOrigin:"bottom"})
+  
   .from(leftCloud, { x: fadeInLeft, duration: 0.8 })
   .from(rightCloud, { x: fadeInRight, duration: 0.8 }, "<")
   .to(leftCloud, {
@@ -200,7 +199,6 @@ gsap.to(blackOverlay, {
 });
 
 const welcomeText = document.querySelector("#longText");
-console.log(welcomeText);
 gsap.to(welcomeText, {
   scrollTrigger: {
     trigger: "body",
@@ -209,7 +207,7 @@ gsap.to(welcomeText, {
     scrub: 1,
   },
   ease: "none",
-  y: -height+(height*0.6),
+  y: -(height*0.45),
 });
 
 
