@@ -6,11 +6,16 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "laravel-mix": "^6.0.13"
+    "laravel-mix": "^6.0.13",
+    "strip-ansi": "^6.0.0"
   },
   "browserslist": [
     ">0.25%",
     "not ie 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "prettier": "2.2.1"
+  }
 }
