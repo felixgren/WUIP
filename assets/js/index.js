@@ -4,6 +4,13 @@ window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
 
+function reportWindowSize() {
+  console.log(window.innerHeight);
+  console.log(window.innerWidth);
+}
+
+window.addEventListener('resize', reportWindowSize);
+
 const height = window.innerHeight;
 const width = window.innerWidth;
 

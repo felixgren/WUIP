@@ -94,10 +94,6 @@ input[type="submit"] {
   z-index: 0;
 }
 
-#longText {
-  font-family: var(--text);
-  font-size: 0.8rem;
-}
 
 .blackImageCover {
   background-color: var(--overLay);
@@ -263,103 +259,32 @@ img.logo {
   right: 0px;
 }
 
-@media screen and (min-width: 600px) {
-	#Sun_1_ {
-	  width: 340px;
-	}
+#what{
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
 }
 
+#with{
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  transform: translateX(-43%);
+  width: 50%;
+}
 
+#when{
+  position: absolute;
+  top: 31%;
+  left: 50%;
+  transform: translateX(-45%);
+  width: 50%;
+}
 
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 600px){
   #Sun_1_ {
-	  width: 160px;
-    left: 30px;
-    top: 5%;
-	}
-
-  #Cloud_left_1_{
-    top: 25%;
-    width: 90%;
-    left: -80px;
-  }
-
-  #Cloud_right_1_{
-    top: 30%;
-    width: 90%;
-    right: -60px;
-  }
-  
-  #Ground{
-    height: 20%;
-  }
-
-  #Tent_2_{
-     bottom: 17%;  
-  }
-
-  #Tent_2_, #Shadow{
-    height: 20%; 
-    width: 50%;   
-    right: -20px;
-  }
-
-  #Sign-name{
-    height: 20%;
-  }
-
-  #Tree1_1_{
-    height: 250px;
-    bottom: 15%;
-    left: -40px;
-  }
-  #Tree2_1_{
-    height: 250px;
-    bottom: 15%;
-    left: 0px;
-
-  }
-  #Tree3_1_{
-    height: 270px;
-    left: 80px;
-    bottom: 15%;
-  }
-
-  #Tree4_1_{
-    bottom: 17%; 
-    right: 40px; 
-    height: 310px;
-  }
-
-  #Tree5_1_{
-    bottom: 17%;
-    right: -50px;
-    height: 280px;
-  }
-
-
-  #Tree-green1_1_{
-    height: 450px;
-    left: -30px;
-    bottom: 5%;
-  }
-  
-  #Tree-green2_1_{
-    bottom: 18%;
-    height: 420px;
-    right: -60px;
-  }
-
-  .contactForm{
-    width: 100%;
-    margin: 0 20px;
-    bottom: 100px;
-    height: 50%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-	#Sun_1_ {
 	  width: 160px;
     left: 30px;
     top: 5%;
@@ -443,6 +368,101 @@ img.logo {
     bottom: 100px;
     height: 50%;
   }
+}
+
+@media screen and (max-width: 900px) {
+	#Sun_1_ {
+	  width: 160px;
+    left: 30px;
+    top: 5%;
+	}
+
+  #Cloud_left_1_{
+    top: 25%;
+    width: 90%;
+    left: -80px;
+  }
+
+  #Cloud_right_1_{
+    top: 30%;
+    width: 90%;
+    right: -60px;
+  }
+  
+  #Ground{
+    height: 20%;
+  }
+
+  #Tent_2_{
+     bottom: 17%;  
+  }
+
+  #Tent_2_, #Shadow{
+    height: 20%; 
+    width: 70%;   
+    right: -20px;
+  }
+
+  #Sign-name{
+    height: 20%;
+  }
+
+  #Tree1_1_{
+    height: 250px;
+    bottom: 15%;
+    left: -40px;
+  }
+  #Tree2_1_{
+    height: 250px;
+    bottom: 15%;
+    left: 0px;
+
+  }
+  #Tree3_1_{
+    height: 270px;
+    left: 80px;
+    bottom: 15%;
+  }
+
+  #Tree4_1_{
+    bottom: 17%; 
+    right: 40px; 
+    height: 310px;
+  }
+
+  #Tree5_1_{
+    bottom: 17%;
+    right: -50px;
+    height: 280px;
+  }
+
+
+  #Tree-green1_1_{
+    height: 450px;
+    left: -30px;
+    bottom: 5%;
+  }
+  
+  #Tree-green2_1_{
+    bottom: 18%;
+    height: 420px;
+    right: -60px;
+  }
+
+  #longText{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -100px;
+    width: 10%;
+  }
+
+  .contactForm{
+    width: 100%;
+    margin: 0 20px;
+    bottom: 100px;
+    height: 50%;
+  }
 
   .entries{
     height: 40px;
@@ -456,7 +476,12 @@ img.logo {
     font-size: 20px;
   }
 }
+@media only screen and (min-width: 900px) {
+  #Tent_2_, #Shadow{
+    width: 40%;
+  }
 
+}
 @media only screen and (min-width: 1200px) {
   #Tent_2_, #Shadow{
     width: 20%;
@@ -472,5 +497,18 @@ img.logo {
   #Cloud_right_1_{
     right: 50%;
     transform: translateX(70%);
+  }
+
+  #what{
+    width: 20%;
+    top: 20%;
+  }
+  #with{
+    width: 20%;
+    top: 30%;
+  }
+  #when{
+    width: 20%;
+    top: 35%;
   }
 }
