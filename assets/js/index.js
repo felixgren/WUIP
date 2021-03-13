@@ -36,10 +36,10 @@ const sign = document.querySelector("#Sign-name");
 const page = document.querySelector(".textHier");
 
 const queryString = window.location.search;
-//http://localhost:1234/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
+//http://localhost:1337/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
 const urlParams = new URLSearchParams(queryString);
 
-const guestName = urlParams.get("name");
+const guestName = urlParams.get("name") === null ? 'Guest' : urlParams.get("name");
 const email = urlParams.get("email");
 const phone = urlParams.get("phone");
 
@@ -58,16 +58,16 @@ let hiText = [
   "Aloha",
   "Privet",
   "Ciao",
+  "Halo"
 ];
 
 
-// setInterval(function () {
-//   let rand = Math.floor(Math.random() * hiText.length);
-//   document.querySelector(
-//     ".hello-name"
-//   ).textContent = `${hiText[rand]} ${guestName}`;
-// }, 2000);
-
+setInterval(function () {
+  let rand = Math.floor(Math.random() * hiText.length);
+  document.querySelector(
+    ".sign-text"
+  ).textContent = `${hiText[rand]} ${guestName}`;
+}, 2000);
 
 const tree1_1 = document.querySelector("#tree1_1_");
 const tree2_1 = document.querySelector("#tree2_1_");
@@ -78,7 +78,6 @@ const TreeGreen1_1 = document.querySelector("#Tree-green1_1_");
 const TreeGreen2_1 = document.querySelector("#Tree-green2_1_");
 const contactForm = document.querySelector(".contactForm");
 
-gsap.to(sun, { duration: 1.5, scale: (1, 1), ease: "back" });
 const longText = document.querySelector("#longText");
 
 gsap
@@ -214,7 +213,7 @@ gsap.to(welcomeText, {
     scrub: 1,
   },
   ease: "none",
-  y: -(height*0.45),
+  y: -(height*0.50),
 });
 
 
