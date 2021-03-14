@@ -36,7 +36,7 @@ const sign = document.querySelector("#Sign-name");
 const page = document.querySelector(".textHier");
 
 const queryString = window.location.search;
-//http://localhost:1337/?name=Daniel&email=daniel.borgstrom@%C2%A0gmail.com&phone=0703473880
+//http://localhost:1337/?name=Daniel&email=daniel.borgstrom@gmail.com&phone=0703473880
 const urlParams = new URLSearchParams(queryString);
 
 const guestName = urlParams.get("name") === null ? 'Guest' : urlParams.get("name");
