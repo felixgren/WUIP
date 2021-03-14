@@ -1,154 +1,69 @@
-/* @media only screen and (max-width: 600px) { */
-    #Sun_1_ {
-        position: absolute;
-      width: 160px;
-      
-    }
-    #longText{
-        position: absolute;
-      width: 50%;
-      bottom: -150px;
-    }
-  
-    #Cloud_left_1_{
-        position: absolute;
-      top: 25%;
-      width: 90%;
-      left: -80px;
-    }
-  
-    #Cloud_right_1_{
-        position: absolute;
-      top: 30%;
-      width: 90%;
-      right: -60px;
-    }
+#Sun_1_,
+#longText,
+#Cloud_left_1_,
+#Cloud_right_1_,
+#Ground,
+#Tent_2_,
+#Shadow,
+#Sign-name,
+#Tree1_1_,
+#Tree2_1_,
+#Tree3_1_,
+#Tree4_1_,
+#Tree5_1_,
+#Tree-green1_1_,
+#Tree-green2_1_,
+#what,
+#with,
+#when{
+    position: absolute;
+}
+
+#what{
+    left: 50%;
+    transform: translateX(-49%);
+}
+#with{
+    left: 50%;
+    transform: translateX(-47%);
+}
+#when{
+    left: 50%;
+    transform: translateX(-47%);
+}
+
+#longText{
+    left: 50%;
+    transform: translateX(-50%);
+    /* bottom: -160px; */
+}
+
+#Sign-name,
+#Shadow,
+#Ground{
+    bottom: 0px;
+}
+
+#Ground{
+    left: 0;
+    width: 100%;
+}
+
+.contactForm{
+    width: calc(100% - 40px);
+    margin: 0 20px;
+    bottom: 100px;
+    height: 50%;
+  }
+
+  .entries{
+    height: 40px;
     
-    #Ground{
-        position: absolute;
-      height: 20%;
-      bottom: 0;
-    }
-  
-    #Tent_2_{
-        position: absolute;
-       bottom: 17%;  
-    }
-  
-    #Tent_2_, #Shadow{
-        position: absolute;
-      height: 20%; 
-      width: 70%;   
-      right: -20px;
-    }
-    #Shadow{
-        bottom: 0px; 
-      }
-  
-      #Sign-name{
-        position: absolute; 
-        height: 20%;
-        bottom: 0px; 
-        right: 0px;
-      }
-  
-    #Tree1_1_{
-        position: absolute;
-      height: 250px;
-      bottom: 15%;
-      left: -40px;
-    }
-    #Tree2_1_{
-        position: absolute;
-      height: 250px;
-      bottom: 15%;
-      left: 0px;
-  
-    }
-    #Tree3_1_{
-        position: absolute;
-      height: 270px;
-      left: 80px;
-      bottom: 15%;
-    }
-  
-    #Tree4_1_{
-        position: absolute;
-      bottom: 17%; 
-      right: 40px; 
-      height: 310px;
-    }
-  
-    #Tree5_1_{
-        position: absolute;
-      bottom: 17%;
-      right: -50px;
-      height: 280px;
-    }
-  
-  
-    #Tree-green1_1_{
-        position: absolute;
-      height: 450px;
-      left: -30px;
-      bottom: 5%;
-    }
-    
-    #Tree-green2_1_{
-        position: absolute;
-      bottom: 18%;
-      height: 420px;
-      right: -60px;
-    }
-  
-    .contactForm{
-      width: calc(100% - 20px);
-      margin: 0 10px;
-      bottom: 100px;
-      height: 50%;
-      backdrop-filter: blur(10px);
-    }
-    .entries{
-      height: 40px;
-      font-size: 20px;
-      border-radius: 10px;
-    }
-    input.entries:first-of-type{
-      margin-top: 40px;
-    }
-    textarea.entries{
-      font-size: 20px;
-      border-radius: 10px;
-    }
-    #what{
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 50%;
-      }
-      
-      #with{
-        position: absolute;
-        top: 27%;
-        left: 50%;
-        transform: translateX(-43%);
-        width: 50%;
-      }
-      
-      #when{
-        position: absolute;
-        top: 31%;
-        left: 50%;
-        transform: translateX(-45%);
-        width: 50%;
-      }
-      
-      #longText{
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        bottom: -100px;
-        width: 60%;
-      }    
-  /* } */
+    font-size: 20px;
+  }
+  input.entries:first-of-type{
+    margin-top: 40px;
+  }
+  textarea.entries{
+    font-size: 20px;
+  }

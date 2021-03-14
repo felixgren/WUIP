@@ -141,7 +141,7 @@ gsap
     sign,
     {
       duration: 0.8,
-      rotation: 90,
+      rotation: 180,
       transformOrigin: "center bottom",
       ease: "bounce.out",
     },
