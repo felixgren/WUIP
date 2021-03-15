@@ -77,6 +77,22 @@ const tree5_1 = document.querySelector("#tree5_1_");
 const TreeGreen1_1 = document.querySelector("#Tree-green1_1_");
 const TreeGreen2_1 = document.querySelector("#Tree-green2_1_");
 const contactForm = document.querySelector(".contactForm");
+const contactFormEntries = gsap.utils.toArray(".contactForm input");
+
+const submitForm = document.querySelector(".BookMe");
+
+submitForm.addEventListener('click', () => {
+  let move = 1;
+    const direction = move % 2 ? '+' : '-';
+    console.log(direction);
+    gsap
+    .to(contactFormEntries, {
+      duration: 0.2,
+      x: `${direction}${width}`,
+      stagger: 0.2,
+    });
+    move++;
+});
 
 const longText = document.querySelector("#longText");
 
@@ -189,7 +205,6 @@ gsap.to(blackOverlay, {
             gsap.to(element, {
               fill: "white",
             });
-            // page.append(element);
           });
         },
       }

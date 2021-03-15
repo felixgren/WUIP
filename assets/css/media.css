@@ -21,11 +21,13 @@
 
 #what{
     left: 50%;
+    width: 50%;
     transform: translateX(-49%);
 }
 #with{
     left: 50%;
-    transform: translateX(-47%);
+    width: 50%;
+    transform: translateX(-44%);
 }
 #when{
     left: 50%;
@@ -34,8 +36,9 @@
 
 #longText{
     left: 50%;
-    transform: translateX(-50%);
-    /* bottom: -160px; */
+    width: 60%;
+    transform: translateX(-46%);
+    bottom: -280px;
 }
 
 #Sign-name,
@@ -53,17 +56,18 @@
     width: calc(100% - 40px);
     margin: 0 20px;
     bottom: 100px;
-    height: 50%;
+    height: 30%;
   }
 
   .entries{
     height: 40px;
-    
+    border-radius: 10px;
     font-size: 20px;
   }
   input.entries:first-of-type{
     margin-top: 40px;
   }
   textarea.entries{
+    border-radius: 10px;
     font-size: 20px;
   }

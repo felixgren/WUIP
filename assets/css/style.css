@@ -11,7 +11,6 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  /* // font-family: 'Nixie One'; */
 }
 
 .sign-cls-1{fill:#764600;}
@@ -29,7 +28,7 @@
   border-radius: 50px;
   background-color: rgba(255, 255, 255, 0.15);
   text-align: center;
-  /* // backdrop-filter: blur(10px); */
+  backdrop-filter: blur(10px);
   opacity: 0;
 }
 .entries {
@@ -41,7 +40,7 @@
   font-weight: bold;
   font-family: var(--headline);
   padding-left: 20px;
-  border-radius: 35px;
+  border-radius: 10px;
   font-size: 40px;
   color: #000;
   border: 0;
@@ -57,7 +56,7 @@ textarea.entries {
   font-weight: bold;
   font-family: var(--headline);
   padding-left: 20px;
-  border-radius: 35px;
+  border-radius: 10px;
   font-size: 40px;
   color: #000;
   border: 0;
@@ -142,7 +141,8 @@ input[type="submit"] {
 .downArrow {
   position: fixed;
   bottom: 100px;
-  left: calc(50% - 50px);
+  left: 50%;
+  transform: translateX(-50%);
   fill: white;
   z-index: 2;
 }
@@ -191,117 +191,15 @@ img.logo {
   }
 }
 
-/* #Sun_1_{
-  position: absolute;
-  top: 100px;
-  left: 100px;
-  
-
-}
-
-#Cloud_left_1_{
-  position: absolute;
-}
-
-#Cloud_right_1_{
-  position: absolute;  
-}
-
-#Tree1_1_{
-  position: absolute;
-}
-
-#tree2_1_{
-  position: absolute; 
-}
-
-#tree3_1_{
-  position: absolute;
-  
-}
-
-#Tree4_1_{
-  position: absolute; 
- 
-}
-
-#Tree5_1_{
-  position: absolute;
-
-}
-
-#Tree-green1_1_{
-  position: absolute; 
-
-
-}
-
-#Tree-green2_1_{
-  position: absolute;
-}
-
-#Tent_2_{
-  position: absolute; 
- 
-}
-
-#Shadow{
-  position: absolute; 
-  bottom: 0px; 
-}
-
-#Ground{
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-#Sign-name{
-  position: absolute; 
-  bottom: 0px; 
-  right: 0px;
-}
-
-#what{
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50%;
-}
-
-#with{
-  position: absolute;
-  top: 27%;
-  left: 50%;
-  transform: translateX(-43%);
-  width: 50%;
-}
-
-#when{
-  position: absolute;
-  top: 31%;
-  left: 50%;
-  transform: translateX(-45%);
-  width: 50%;
-}
-
-#longText{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: -100px;
-  width: 20%;
-} */
-
-
-/* @media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) {
   #Sun_1_ {
-    width: 160px;
+    width: 120px;
+    left: 20px;
+    top: 5%;
   }
   #longText{
     width: 50%;
-    bottom: -150px;
+    bottom: -110px;
   }
 
   #Cloud_left_1_{
@@ -332,21 +230,22 @@ img.logo {
 
   #Sign-name{
     height: 20%;
+    right: 50px;
   }
 
   #Tree1_1_{
-    height: 250px;
+    height: 150px;
     bottom: 15%;
-    left: -40px;
+    left: -20px;
   }
   #Tree2_1_{
-    height: 250px;
+    height: 150px;
     bottom: 15%;
     left: 0px;
 
   }
   #Tree3_1_{
-    height: 270px;
+    height: 150px;
     left: 80px;
     bottom: 15%;
   }
@@ -354,26 +253,26 @@ img.logo {
   #Tree4_1_{
     bottom: 17%; 
     right: 40px; 
-    height: 310px;
+    height: 210px;
   }
 
   #Tree5_1_{
     bottom: 17%;
     right: -50px;
-    height: 280px;
+    height: 210px;
   }
 
 
   #Tree-green1_1_{
-    height: 450px;
+    height: 340px;
     left: -30px;
     bottom: 5%;
   }
   
   #Tree-green2_1_{
     bottom: 18%;
-    height: 420px;
-    right: -60px;
+    height: 280px;
+    right: -20px;
   }
 
   .contactForm{
@@ -381,12 +280,15 @@ img.logo {
     margin: 0 10px;
     bottom: 100px;
     height: 50%;
+    border-radius: 10px;
     backdrop-filter: blur(10px);
   }
   .entries{
     height: 40px;
     font-size: 20px;
     border-radius: 10px;
+    width: calc(100% - 20px);
+    margin: 10px 10px;
   }
   input.entries:first-of-type{
     margin-top: 40px;
@@ -394,8 +296,26 @@ img.logo {
   textarea.entries{
     font-size: 20px;
     border-radius: 10px;
+    height: 60px;
+    margin: 0 10px;
+    width: calc(100% - 20px);
   }
-} */
+
+  input[type="submit"]{
+    height: 40px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+  #what{
+    top: 22%;
+  }
+  #with{
+    top: 30%;
+  }
+  #when{
+    top: 33%;
+  }
+} 
 
 @media only screen and (min-width: 600px){
   #Sun_1_ {
@@ -534,7 +454,8 @@ img.logo {
 
   #Tent_2_, #Shadow{
     height: 20%; 
-    width: 70%;   
+    width: 40%;   
+    max-width: 410px;
     right: -20px;
   }
 
@@ -587,12 +508,12 @@ img.logo {
 
   #longText{
     width: 40%;
-    bottom: -150px;
+    bottom: -250px;
   }
   
   #what{
     width: 40%;
-    top: 19%;
+    top: 17%;
   }
   #with{
     width: 40%;
@@ -604,8 +525,8 @@ img.logo {
   }
   
   .contactForm{
-    width: 100%;
-    margin: 0 20px;
+    width: calc(100% - 50px);
+    margin: 0 25px;
     bottom: 100px;
     height: 50%;
   }
@@ -646,7 +567,11 @@ img.logo {
     top: 36%;
   }
   #longText{
-    bottom: -350px;
+    bottom: -280px;
+  }
+  .contactForm{
+    width: calc(100% - 200px);
+    margin: 0 100px;
   }
 }
 
@@ -674,15 +599,18 @@ img.logo {
   }
   #with{
     width: 20%;
-    top: 30%;
+    top: 25%;
   }
   #when{
     width: 20%;
-    top: 35%;
+    top: 30%;
   }
   #longText{
-    width: 20%;
-    bottom: -350px;
+    width: 30%;
+    bottom: -300px;
+  }
+  .contactForm{
+    width: 600px;
   }
   
 }
