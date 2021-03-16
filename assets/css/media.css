@@ -3,7 +3,7 @@
 #Cloud_left_1_,
 #Cloud_right_1_,
 #Ground,
-#Tent_2_,
+#Tent,
 #Shadow,
 #Sign-name,
 #Tree1_1_,
@@ -15,59 +15,59 @@
 #Tree-green2_1_,
 #what,
 #with,
-#when{
-    position: absolute;
+#when {
+  position: absolute;
 }
 
-#what{
-    left: 50%;
-    width: 50%;
-    transform: translateX(-49%);
+#what {
+  left: 50%;
+  width: 50%;
+  transform: translateX(-49%);
 }
-#with{
-    left: 50%;
-    width: 50%;
-    transform: translateX(-44%);
+#with {
+  left: 50%;
+  width: 50%;
+  transform: translateX(-44%);
 }
-#when{
-    left: 50%;
-    transform: translateX(-47%);
+#when {
+  left: 50%;
+  transform: translateX(-47%);
 }
 
-#longText{
-    left: 50%;
-    width: 60%;
-    transform: translateX(-46%);
-    bottom: -280px;
+#longText {
+  left: 50%;
+  width: 60%;
+  transform: translateX(-46%);
+  bottom: -280px;
 }
 
 #Sign-name,
 #Shadow,
-#Ground{
-    bottom: 0px;
+#Ground {
+  bottom: 0px;
 }
 
-#Ground{
-    left: 0;
-    width: 100%;
+#Ground {
+  left: 0;
+  width: 100%;
 }
 
-.contactForm{
-    width: calc(100% - 40px);
-    margin: 0 20px;
-    bottom: 100px;
-    height: 30%;
-  }
+.contactForm {
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  bottom: 100px;
+  height: 30%;
+}
 
-  .entries{
-    height: 40px;
-    border-radius: 10px;
-    font-size: 20px;
-  }
-  input.entries:first-of-type{
-    margin-top: 40px;
-  }
-  textarea.entries{
-    border-radius: 10px;
-    font-size: 20px;
-  }
+.entries {
+  height: 40px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+input.entries:first-of-type {
+  margin-top: 40px;
+}
+textarea.entries {
+  border-radius: 10px;
+  font-size: 20px;
+}

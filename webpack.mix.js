@@ -1,6 +1,6 @@
-const mix = require("laravel-mix");
+const mix = require('laravel-mix');
 
-require("dotenv").config();
+require('dotenv').config();
 
 /*
  |--------------------------------------------------------------------------
@@ -18,7 +18,7 @@ const theme = process.env.WP_THEME;
 // mix.setResourceRoot('../');
 // mix.setPublicPath(`public/themes/${theme}/assets`);
 
-mix.js("assets/js/index.js", "app.js");
-mix.postCss("assets/css/style.css", "app.css", [
+mix.js('assets/js/index.js', 'app.js');
+mix.postCss('assets/css/style.css', 'app.css', [
   //
 ]);
