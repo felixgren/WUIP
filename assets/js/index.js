@@ -77,21 +77,29 @@ const tree5_1 = document.querySelector("#tree5_1_");
 const TreeGreen1_1 = document.querySelector("#Tree-green1_1_");
 const TreeGreen2_1 = document.querySelector("#Tree-green2_1_");
 const contactForm = document.querySelector(".contactForm");
-const contactFormEntries = gsap.utils.toArray(".contactForm input");
-
+const contactFormEntries = gsap.utils.toArray(".contactForm input,textarea");
+const bookCompleted = document.querySelector(".bookCompleted");
 const submitForm = document.querySelector(".BookMe");
 
+
 submitForm.addEventListener('click', () => {
-  let move = 1;
-    const direction = move % 2 ? '+' : '-';
-    console.log(direction);
-    gsap
-    .to(contactFormEntries, {
+    gsap.to(contactFormEntries, {
       duration: 0.2,
-      x: `${direction}${width}`,
+      x: -`${width}`,
+      opacity: 0,
       stagger: 0.2,
-    });
-    move++;
+      onComplete: () => {
+        contactForm.innerHTML = `
+        <div class="w4rAnimated_checkmark bookCompleted">
+        <svg version="1.1" class="svgBookMe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+        <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+        <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+        </svg>
+        <p style="margin: 25px 25px; font-family: NixieOne-Regular;">Tack för din bokning! Du kommer inom kort få mer information via mail.</p>
+        </div>
+        `
+      }
+    })
 });
 
 const longText = document.querySelector("#longText");
@@ -203,7 +211,7 @@ gsap.to(blackOverlay, {
         onComplete: () => {
           textBehindCloud.forEach((element) => {
             gsap.to(element, {
-              fill: "white",
+              
             });
           });
         },

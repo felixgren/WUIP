@@ -135,14 +135,14 @@ input[type="submit"] {
   background-color: #fff;
 }
 
-.downArrow image {
+.downArrow img {
   fill: white;
 }
 .downArrow {
+  display: inline-block;
+  left: calc(50% - 16px);
   position: fixed;
-  bottom: 100px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 50px;
   fill: white;
   z-index: 2;
 }
@@ -164,6 +164,21 @@ img.logo {
 
 .cloudText{
 	opacity: 0;
+}
+
+#what{
+  font-size:50px;
+  font-family: var(--headline);
+}
+#with{
+  font-size: 20px;
+  font-family: var(--text);
+  left: 50%;
+  transform: translateX(-50%);
+}
+#when{
+  font-size: 24px;
+  font-family: var(--text);
 }
 
 @keyframes bounce {
@@ -191,7 +206,7 @@ img.logo {
   }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px)  {
   #Sun_1_ {
     width: 120px;
     left: 20px;
@@ -199,7 +214,7 @@ img.logo {
   }
   #longText{
     width: 50%;
-    bottom: -110px;
+    bottom: -50px;
   }
 
   #Cloud_left_1_{
@@ -279,7 +294,7 @@ img.logo {
     width: calc(100% - 20px);
     margin: 0 10px;
     bottom: 100px;
-    height: 50%;
+    height: 40%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
   }
@@ -291,7 +306,7 @@ img.logo {
     margin: 10px 10px;
   }
   input.entries:first-of-type{
-    margin-top: 40px;
+    margin-top: 10px;
   }
   textarea.entries{
     font-size: 20px;
@@ -307,13 +322,17 @@ img.logo {
     border-radius: 10px;
   }
   #what{
-    top: 22%;
+    top: 14%;
+    width: 80%;
   }
   #with{
-    top: 30%;
+    top: 26%;
+    width: 50%;
+ 
   }
   #when{
-    top: 33%;
+    top: 29%;
+    width: 50%;
   }
 } 
 
@@ -556,15 +575,15 @@ img.logo {
 
   #what{
     width: 30%;
-    top: 25%;
+    top: 20%;
   }
   #with{
     width: 30%;
-    top: 33%;
+    top: 29%;
   }
   #when{
     width: 20%;
-    top: 36%;
+    top: 34%;
   }
   #longText{
     bottom: -280px;
@@ -578,7 +597,7 @@ img.logo {
 
 @media only screen and (min-width: 1200px) {
   #Tent_2_, #Shadow{
-    width: 20%;
+    width: 35%;
   }
 
   #Cloud_left_1_, #Cloud_right_1_{
@@ -594,23 +613,212 @@ img.logo {
   }
 
   #what{
-    width: 20%;
-    top: 18%;
+    width: 35%;
+    top: 16%;
   }
   #with{
     width: 20%;
-    top: 25%;
+    top: 28%;
   }
   #when{
     width: 20%;
     top: 30%;
   }
   #longText{
-    width: 30%;
+    width: 70%;
     bottom: -300px;
   }
   .contactForm{
     width: 600px;
   }
+
+  #longText{
+    width: 35%;
+    bottom: -300px;
+  }
   
 }
+
+@media only screen and (min-width: 2000px) {
+  #what{
+    width: 14%;
+    top: 18%;
+  }
+  #with{
+    width: 16%;
+    top: 28%;
+  }
+  #when{
+    width: 18%;
+    top: 30%;
+  }
+  #longText{
+    width: 20%;
+    bottom: -300px;
+  }
+
+}
+
+.w4rAnimated_checkmark {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+}
+
+.w4rAnimated_checkmark svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  margin: 0 auto;
+}
+.w4rAnimated_checkmark .path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+.w4rAnimated_checkmark .path.circle {
+  -webkit-animation: dash 0.9s ease-in-out;
+  animation: dash 0.9s ease-in-out;
+}
+.w4rAnimated_checkmark .path.line {
+  stroke-dashoffset: 1000;
+  -webkit-animation: dash 0.9s 0.35s ease-in-out forwards;
+  animation: dash 0.9s 0.35s ease-in-out forwards;
+}
+.w4rAnimated_checkmark .path.check {
+  stroke-dashoffset: -100;
+  -webkit-animation: dash-check 0.9s 0.35s ease-in-out forwards;
+  animation: dash-check 0.9s 0.35s ease-in-out forwards;
+}
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+
+
+
+.animation-ctn{
+  text-align:center;
+  margin-top:5em;
+}
+
+	@-webkit-keyframes checkmark {
+    0% {
+        stroke-dashoffset: 100px
+    }
+
+    100% {
+        stroke-dashoffset: 200px
+    }
+}
+
+@-ms-keyframes checkmark {
+    0% {
+        stroke-dashoffset: 100px
+    }
+
+    100% {
+        stroke-dashoffset: 200px
+    }
+}
+
+@keyframes checkmark {
+    0% {
+        stroke-dashoffset: 100px
+    }
+
+    100% {
+        stroke-dashoffset: 0px
+    }
+}
+
+@-webkit-keyframes checkmark-circle {
+    0% {
+        stroke-dashoffset: 480px
+   
+    }
+
+    100% {
+        stroke-dashoffset: 960px;
+      
+    }
+}
+
+@-ms-keyframes checkmark-circle {
+    0% {
+        stroke-dashoffset: 240px
+    }
+
+    100% {
+        stroke-dashoffset: 480px
+    }
+}
+
+@keyframes checkmark-circle {
+    0% {
+        stroke-dashoffset: 480px 
+    }
+
+    100% {
+        stroke-dashoffset: 960px
+    }
+}
+
+@keyframes colored-circle { 
+    0% {
+        opacity:0
+    }
+
+    100% {
+        opacity:100
+    }
+}
+
+.inlinesvg .svg svg {
+    display: inline
+}
+.icon--order-success svg polyline {
+    -webkit-animation: checkmark 0.25s ease-in-out 0.7s backwards;
+    animation: checkmark 0.25s ease-in-out 0.7s backwards
+}
+
+.icon--order-success svg circle {
+    -webkit-animation: checkmark-circle 0.6s ease-in-out backwards;
+    animation: checkmark-circle 0.6s ease-in-out backwards;
+}
+.icon--order-success svg circle#colored {
+    -webkit-animation: colored-circle 0.6s ease-in-out 0.7s backwards;
+    animation: colored-circle 0.6s ease-in-out 0.7s backwards;
+} 
