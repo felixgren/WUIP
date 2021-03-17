@@ -1,53 +1,50 @@
 'use strict';
 
+/* SCROLL TO TOP ON LOAD */
 window.onbeforeunload = function () {
   window.scrollTo(0, 0);
 };
 
-function reportWindowSize() {
-  console.log(window.innerHeight);
-  console.log(window.innerWidth);
-}
 
-window.addEventListener('resize', reportWindowSize);
 
+gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
+
+/* GET HEIGHT AND WIDTH */
 const height = window.innerHeight;
 const width = window.innerWidth;
-
 const fadeInLeft = width / width - width;
 const fadeOutToLeft = width;
 const fadeInRight = width / width + width;
 const fadeInBottom = height / height + height;
-const image = document.querySelector('.image');
-const textBehindCloud = gsap.utils.toArray('.cloudText');
 
-gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
+
 
 /* GET ALL CLASSES THAT ARE NEEDED */
 const blackOverlay = document.querySelector('.blackImageCover');
 const leftCloud = document.querySelector('#Cloud_left_1_');
 const rightCloud = document.querySelector('#Cloud_right_1_');
-
+const textBehindCloud = gsap.utils.toArray('.cloudText');
 const sun = document.querySelector('#Sun_1_');
 const sky = document.querySelector('#Sky');
 const body = document.querySelector('body');
 const tent = document.querySelector('#Tent');
 const sign = document.querySelector('#Sign-name');
-const page = document.querySelector('.textHier');
+const image = document.querySelector('.image');
 
-const queryString = window.location.search;
+
 //http://localhost:1337/?name=Daniel&email=daniel.borgstrom@gmail.com&phone=0703473880
+/* GET URL PARAMS */
+const queryString = window.location.search;
 const urlParams = new URLSearchParams(queryString);
-
-const guestName =
-  urlParams.get('name') === null ? 'Guest' : urlParams.get('name');
+const guestName = urlParams.get('name') === null ? 'Guest' : urlParams.get('name');
 const email = urlParams.get('email');
 const phone = urlParams.get('phone');
-
 document.querySelector('.name').value = guestName;
 document.querySelector('.email').value = email;
 document.querySelector('.phone').value = phone;
 
+
+/* CHANGE "HI" TO DIFFERENT LANGUAGES  */
 let hiText = [
   'Hi',
   'Hola',
@@ -62,6 +59,7 @@ let hiText = [
   'Halo',
 ];
 
+/* CHANGE LANGUAGE AFTER 2 SECS. */
 setInterval(function () {
   let rand = Math.floor(Math.random() * hiText.length);
   document.querySelector(
@@ -69,6 +67,7 @@ setInterval(function () {
   ).textContent = `${hiText[rand]} ${guestName}`;
 }, 2000);
 
+/* SELECT ALL DIFFERENT ELEMENTS/SVGS */
 const tree1_1 = document.querySelector('#tree1_1_');
 const tree2_1 = document.querySelector('#tree2_1_');
 const tree3_1 = document.querySelector('#tree3_1_');
@@ -76,6 +75,7 @@ const tree4_1 = document.querySelector('#tree4_1_');
 const tree5_1 = document.querySelector('#tree5_1_');
 const TreeGreen1_1 = document.querySelector('#Tree-green1_1_');
 const TreeGreen2_1 = document.querySelector('#Tree-green2_1_');
+const welcomeText = document.querySelector('#longText');
 const contactForm = document.querySelector('.contactForm');
 const contactFormEntries = gsap.utils.toArray(
   '.contactForm input,textarea',
@@ -83,10 +83,10 @@ const contactFormEntries = gsap.utils.toArray(
 const bookCompleted = document.querySelector('.bookCompleted');
 const submitForm = document.querySelector('.BookMe');
 
+/* IF USER CLICKED THE FORM BUTTON */
 submitForm.addEventListener('click', () => {
   gsap.to(contactFormEntries, {
     duration: 0.2,
-    // x: -`${width}`,
     opacity: 0,
     stagger: 0.2,
     onComplete: () => {
@@ -103,7 +103,6 @@ submitForm.addEventListener('click', () => {
   });
 });
 
-const longText = document.querySelector('#longText');
 
 gsap
   .timeline()
@@ -224,7 +223,7 @@ gsap.to(blackOverlay, {
   opacity: 0.4,
 });
 
-const welcomeText = document.querySelector('#longText');
+
 gsap.to(welcomeText, {
   scrollTrigger: {
     trigger: 'body',

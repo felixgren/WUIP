@@ -1,0 +1,133 @@
+.bounce {
+    -moz-animation: bounce 2s infinite;
+    -webkit-animation: bounce 2s infinite;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      -moz-transform: translateY(0);
+      -ms-transform: translateY(0);
+      -webkit-transform: translateY(0);
+      transform: translateY(0);
+    }
+    40% {
+      -moz-transform: translateY(-30px);
+      -ms-transform: translateY(-30px);
+      -webkit-transform: translateY(-30px);
+      transform: translateY(-30px);
+    }
+    60% {
+      -moz-transform: translateY(-15px);
+      -ms-transform: translateY(-15px);
+      -webkit-transform: translateY(-15px);
+      transform: translateY(-15px);
+    }
+  }
+
+  @-webkit-keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  @keyframes dash {
+    0% {
+      stroke-dashoffset: 1000;
+    }
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  @-webkit-keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+  @keyframes dash-check {
+    0% {
+      stroke-dashoffset: -100;
+    }
+    100% {
+      stroke-dashoffset: 900;
+    }
+  }
+
+  @-webkit-keyframes checkmark {
+    0% {
+      stroke-dashoffset: 100px;
+    }
+  
+    100% {
+      stroke-dashoffset: 200px;
+    }
+  }
+  
+  @-ms-keyframes checkmark {
+    0% {
+      stroke-dashoffset: 100px;
+    }
+  
+    100% {
+      stroke-dashoffset: 200px;
+    }
+  }
+  
+  @keyframes checkmark {
+    0% {
+      stroke-dashoffset: 100px;
+    }
+  
+    100% {
+      stroke-dashoffset: 0px;
+    }
+  }
+  
+  @-webkit-keyframes checkmark-circle {
+    0% {
+      stroke-dashoffset: 480px;
+    }
+  
+    100% {
+      stroke-dashoffset: 960px;
+    }
+  }
+  
+  @-ms-keyframes checkmark-circle {
+    0% {
+      stroke-dashoffset: 240px;
+    }
+  
+    100% {
+      stroke-dashoffset: 480px;
+    }
+  }
+  
+  @keyframes checkmark-circle {
+    0% {
+      stroke-dashoffset: 480px;
+    }
+  
+    100% {
+      stroke-dashoffset: 960px;
+    }
+  }
+  
+  @keyframes colored-circle {
+    0% {
+      opacity: 0;
+    }
+  
+    100% {
+      opacity: 100;
+    }
+  }
