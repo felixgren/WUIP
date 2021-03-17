@@ -285,7 +285,7 @@
 
   #what {
     width: 35%;
-    top: 14%;
+    top: 10%;
   }
   #with {
     width: 20%;
@@ -301,12 +301,12 @@
   }
 
   #longText {
-    width: 30%;
-    bottom: -350px;
+    width: 25%;
+    bottom: -300px;
   }
 }
 
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 1700px) {
   #what {
     width: 20%;
     top: 15%;
@@ -321,7 +321,7 @@
   }
   #longText {
     width: 20%;
-    bottom: -300px;
+    bottom: -250px;
   }
 }
 
