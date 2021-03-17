@@ -227,7 +227,7 @@ gsap.to(blackOverlay, {
 gsap.to(welcomeText, {
   scrollTrigger: {
     trigger: 'body',
-    start: 'top -1000px',
+    start: 'top -600px',
     end: 'top -1600px',
     scrub: 1,
   },

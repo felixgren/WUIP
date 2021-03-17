@@ -151,7 +151,7 @@
 
   #Sign-name {
     height: 20%;
-    right: 100px;
+    right: 200px;
   }
 
   #Tree1_1_ {
@@ -262,6 +262,10 @@
     width: calc(100% - 200px);
     margin: 0 100px;
   }
+  #Sign-name{
+    right: 200px;
+  }
+
 }
 
 @media only screen and (min-width: 1200px) {
@@ -285,7 +289,7 @@
 
   #what {
     width: 35%;
-    top: 10%;
+    top: 5%;
   }
   #with {
     width: 20%;
@@ -301,8 +305,11 @@
   }
 
   #longText {
-    width: 25%;
-    bottom: -300px;
+    width: 20%;
+    bottom: -250px;
+  }
+  #Sign-name{
+    right: 200px;
   }
 }
 
@@ -320,8 +327,11 @@
     top: 30%;
   }
   #longText {
-    width: 20%;
-    bottom: -250px;
+    width: 15%;
+    bottom: -200px;
+  }
+  #Sign-name{
+    right: 200px;
   }
 }
 
