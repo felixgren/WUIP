@@ -103,7 +103,7 @@ submitForm.addEventListener('click', () => {
   });
 });
 
-
+/* SITE AINMATIONS */
 gsap
   .timeline()
   .from(tree1_1, {

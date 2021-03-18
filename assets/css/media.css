@@ -104,7 +104,7 @@
     font-size: 15px;
   }
   #what {
-    top: 16%;
+    top: 10%;
   }
   #with {
     top: 25%;
@@ -216,7 +216,7 @@
     width: calc(100% - 50px);
     margin: 0 25px;
     bottom: 100px;
-    height: 50%;
+    height: 30%;
   }
 
   .entries {
@@ -289,7 +289,7 @@
 
   #what {
     width: 35%;
-    top: 5%;
+    top: 14%;
   }
   #with {
     width: 20%;
