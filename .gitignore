@@ -1,4 +1,5 @@
 node_modules
+assets
 .cache
 .prettierignore
-assets
+.DS_Store
