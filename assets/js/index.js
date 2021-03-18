@@ -6,7 +6,6 @@ window.onbeforeunload = function () {
 };
 
 
-
 gsap.registerPlugin(TextPlugin, ScrollToPlugin, ScrollTrigger);
 
 /* GET HEIGHT AND WIDTH */
@@ -44,7 +43,7 @@ document.querySelector('.email').value = email;
 document.querySelector('.phone').value = phone;
 
 
-/* CHANGE "HI" TO DIFFERENT LANGUAGES  */
+/* CHANGE "HI" TO DIFFERENT LANGUAGES FOR THE SIGN */
 let hiText = [
   'Hi',
   'Hola',
